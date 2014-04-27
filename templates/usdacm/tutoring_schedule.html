@@ -1,0 +1,98 @@
+{% extends "usdacm/base.html" %}
+
+{% block window-title %}
+| Tutoring Schedule
+{% endblock %}
+
+
+{% block content-area %}
+
+
+
+<table>
+  <tr>
+    <th>Monday</th>
+    <td>
+      <table>
+      {% for time in monday %}
+      <tr><td>{{time}}</td></tr>
+      {% endfor %}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Tuesday</th>
+    <td>
+      <table>
+      {% for time in tuesday %}
+      <tr><td>{{time}}</td></tr>
+      {% endfor %}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Wednesday</th>
+    <td>
+      <table>
+      {% for time in wednesday %}
+      <tr><td>{{time}}</td></tr>
+      {% endfor %}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Thursday</th>
+    <td>
+      <table>
+      {% for time in thursday %}
+      <tr><td>{{time}}</td></tr>
+      {% endfor %}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Friday</th>
+    <td>
+      <table>
+      {% for time in friday %}
+      <tr><td>{{time}}</td></tr>
+      {% endfor %}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Saturday</th>
+    <td>
+      <table>
+      {% for time in saturday %}
+      <tr><td>{{time}}</td></tr>
+      {% endfor %}
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Sunday</th>
+    <td>
+      <table>
+      {% for time in sunday %}
+      <tr><td>{{time}}</td></tr>
+      {% endfor %}
+      </table>
+    </td>
+  </tr>
+
+</table>
+
+
+
+
+
+
+
+{% endblock %}

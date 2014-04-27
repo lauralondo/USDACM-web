@@ -1,0 +1,144 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>USD ACM {% block window-title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}acm/img/acm3_16.ico">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acm/foundation/css/foundation.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acm/css/usdacm.css" />
+    <script src="{{ STATIC_URL }}acm/foundation/js/vendor/modernizr.js"></script>
+    {% block header-link %}{% endblock %}
+  </head>
+
+
+
+
+
+  <body>
+    <!-- Navigation -->
+
+    <nav class="top-bar" data-topbar>
+      <ul class="title-area">
+	<!-- Title Area -->
+	<li class="name">
+          <h1>
+            <a href={% url 'usdacm.views.index' %}>
+              <img id="usd_logo" src="{{ STATIC_URL }}acm/img/usd_monogram.png" />
+	      <span id="acm_logo"> acm </span>
+	    </a>
+          </h1>
+	</li>
+	<li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+      </ul>
+      
+      <section class="top-bar-section">
+	<!-- Right Nav Section -->
+	<ul class="right">
+
+
+	  <li><a href={% url 'usdacm.views.about' %}>About</a></li>
+	  
+	  
+	  <li class="has-dropdown">
+	    <a href={% url 'usdacm.views.tutoring_schedule' %}>Tutoring</a><!-- was just tutoring -->
+	    <ul class="dropdown">
+	      <li><a href={% url 'usdacm.views.tutoring_schedule' %}>Schedule</a></li>
+              <li><a href={% url 'usdacm.views.tutoring_signup' %}>Sign Up</a></li>
+	    </ul>
+	  </li>
+
+
+          <li><a href={% url 'usdacm.views.events' %}>Events</a></li>
+	
+          <li><a href={% url 'usdacm.views.members' %}>Members</a></li>
+	  
+
+	  <!-- user profile or login  -->
+	  {% if user.is_authenticated %}
+	  <li class="has-dropdown">
+	    <a href={% url 'usdacm.views.profile' user.username %}>{{ user.username }}</a>
+	    <ul class="dropdown">
+	      <li><a href={% url 'usdacm.views.logout_user' %}>Logout</a></li>
+	    </ul>
+	  </li>
+
+	  {% else %}
+	  
+          <li class="has-dropdown">
+	    <a href={% url 'usdacm.views.login_user' %}>Login</a>
+	    <ul class="dropdown">
+	      <li><a href={% url 'usdacm.views.register_user' %}>Join ACM!</a></li>
+	    </ul>
+	  </li>
+	  
+	  {% endif %}
+	  <!-- end login menu -->
+
+	</ul>
+      </section>
+    </nav>
+    
+    <!-- End Top Bar -->
+    
+    
+
+
+
+
+
+
+{% block content-area %}
+{% endblock %}
+
+
+
+
+
+  <!-- Footer -->
+
+  <footer class="row">
+    <div class="large-12 columns"><hr>
+      <div class="row">
+	
+        <div class="large-6 columns">
+          <!--<p>© Copyright none one at all. Go to town.</p>-->
+        </div>
+	
+        <div class="large-6 small-12 columns">
+          <ul class="inline-list right">
+            <li><a href="https://github.com/USDACM">GitHub</a></li>
+            <li><a href="http://www.sandiego.edu/" >USD</a></li>
+	    <li><a href="http://www.sandiego.edu/cas/math-cs">Department</a></li>
+            <li><a href="http://www.acm.org/"      >ACM</a></li>
+          </ul>
+        </div>
+	
+      </div>
+    </div>
+  </footer>
+  
+
+
+    <!-- End Footer -->
+
+  <!--<script>
+  document.write('<script src=js/vendor/' +
+  ('__proto__' in {} ? 'zepto' : 'jquery') +
+  '.js><\/script>')
+  </script>-->
+  <script src="{{ STATIC_URL }}acm/foundation/js/vendor/jquery.js"></script>
+  <script src="{{ STATIC_URL }}acm/foundation/js/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+  {% block footer-script %}
+  {% endblock %}
+<!-- End Footer -->
+
+
+</body>
+</html>
+

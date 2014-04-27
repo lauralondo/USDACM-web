@@ -1,0 +1,152 @@
+{% extends "usdacm/base.html" %}
+
+
+{% block content-area %}
+
+<div class="row">
+  <div class="large-12 columns">
+    {% load staticfiles %}
+
+
+    <!-- Content Slider -->
+    
+    <div class="row">
+      <div class="large-12 hide-for-small">
+	    
+        <div id="featured" data-orbit>
+          <img src="{% static "acm/img/ztype1.jpg" %}" alt="slide image">
+  	  <img src="http://placehold.it/1200x500&text=Slide Image 1" alt="slide image">
+          <img src="http://placehold.it/1200x500&text=Slide Image 2" alt="slide image">
+          <img src="http://placehold.it/1200x500&text=Slide Image 3" alt="slide image">
+        </div>
+	
+      </div>
+    </div>
+ 
+    <!-- End Content Slider -->
+ 
+
+    <!-- Mobile Header -->
+    <div class="row">
+      <div class="large-12 columns show-for-small">
+        <img src="http://placehold.it/1200x700&text=Mobile Header">
+      </div>
+    </div><br>
+    <!-- End Mobile Header -->
+
+
+
+
+
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="row">
+
+
+
+
+
+
+          <!-- Events -->
+          <div class="large-4 small-6 columns">
+            <h4>Upcomming Events</h4><hr>
+	    
+	    
+	    {% for event in first_event %}
+	    
+            <div class="row">
+              <div class="large-1 column">
+                <img src="http://placehold.it/50x50&text=[img]">
+              </div>
+	      
+              <div class="large-9 columns">
+                <h5><a href="#">{{event.title}}</a></h5>
+                <h6 class="subheader show-for-small">{{event.text}}</h6>
+              </div>
+            </div><hr>
+	    
+	    {% endfor %}
+	    
+	    
+	    <!-- hides the rest of the events if browser width is too small -->
+            <div class="hide-for-small">
+	      
+	      {% for event in rest_events %}
+              <div class="row">
+                <div class="large-1 column">
+                  <img src="http://placehold.it/50x50&text=[img]">
+                </div>
+		
+                <div class="large-9 columns">
+                  <h5 class="subheader"><a href="#">{{event.title}}</a></h5>
+                </div>
+              </div><hr>
+	      {% endfor %}
+	      
+            </div>
+	    
+	    <a href={% url 'usdacm.views.events' %} class="right">All Events »</a>
+          </div>
+          <!-- End Events -->
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+          <!-- Image -->
+          <div class="large-4 small-6 columns">
+            <img src="{% static "acm/img/ztypechamp.jpg" %}">
+          </div>
+          <!-- End Image -->
+	  
+	  
+	  
+	  
+	  
+
+
+          <!-- Announcements -->
+          <div class="large-4 small-12 columns">
+            <h4>Announcements</h4><hr>
+	    
+	    
+            <div class="panel">
+              <h5><a href="#">Announcement Title 1</a></h5>
+              <h6 class="subheader">blah blah blah, stuff stuff stuff</h6>
+              <h6><a href="#">Read More »</a></h6>
+            </div>
+	    
+	    
+	    
+            <div class="panel hide-for-small">
+              <h5><a href="#">Announcement Title 2 »</a></h5>
+            </div>
+	    
+	    
+            <div class="panel hide-for-small">
+              <h5><a href="#">Announcement Title 3 »</a></h5>
+            </div>
+	    
+	    
+	    
+            <a href="#" class="right">Go To Blog »</a>
+          </div>
+          <!-- End Announcements -->
+	  
+	  
+	  
+	  
+	  
+	  
+        </div>
+      </div>
+    </div>
+    
+    
+    
+  </div>
+</div>
+
+{% endblock %}

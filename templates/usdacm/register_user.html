@@ -1,0 +1,25 @@
+{% extends "usdacm/base.html" %}
+
+
+{% block window-title %}
+| Join
+{% endblock %}
+
+
+
+{% block content-area %}
+
+
+<form  method=post enctype="multipart/form-data">{% csrf_token %}
+  <table align="center">
+    {{ form }}{{ form2 }}
+    <tr>
+      <th colspan="2"><input class="button" type=submit value="Register"></th>
+    </tr>
+  </table>
+</form>
+* required
+
+
+{% endblock %}
+

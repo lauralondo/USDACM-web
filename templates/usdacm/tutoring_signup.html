@@ -1,0 +1,22 @@
+{% extends "usdacm/base.html" %}
+
+{% block window-title %}
+| Tutoring Sign-Up
+{% endblock %}
+
+
+{% block content-area %}
+
+
+<form  method=post enctype="multipart/form-data">{% csrf_token %}
+  <table align="center">
+    {{ form }}
+    <tr>
+      <th colspan="2"><input class="button" type=submit value="Submit"></th>
+    </tr>
+  </table>
+</form>
+* required
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "usdacm/base.html" %}
+
+{% block window-title %}
+| Members
+{% endblock %}
+
+
+{% block content-area %}
+
+
+
+<table>
+
+  {% for member in members %}
+  <tr>
+    <th>
+
+      {% if member.pic %}
+      <img id="avatar_md" src="{{member.pic.url}}">
+      {% else %}
+      {% load staticfiles %}
+      <img id="avatar_md" src="{% static "acm/img/default_pic.png" %}">
+      {% endif %}
+    </th>
+    <th>{{member.firstName}} {{member.lastName}}</th>
+  </tr>
+  {% endfor %}
+ 
+</table>
+
+
+{% endblock %}
