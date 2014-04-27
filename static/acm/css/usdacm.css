@@ -1,0 +1,23 @@
+#usd_logo {
+	vertical-align:text-bottom;
+	max-height:40px;
+}
+
+#acm_logo {
+
+	color: #33dd55;
+	font-size:32pt;
+	font-weight:bold;
+}
+
+#avatar_lg {
+    max-height:200px;
+    max-width:200px;
+    border-radius:10px;
+}
+
+#avatar_md {
+    max-height:100px;
+    max-width:100px;
+    border-radius:10px;
+}
