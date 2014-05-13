@@ -54,21 +54,20 @@ var genCalendar = function() {
     $('#title-year').html(year);
     $('#title-month').html(monthNames[month-1]);
 
-    //var prevNumDays = new Date(prevYear, prevMonth, 0).getDate();
-    //var currNumDays = new Date(year, month, 0).getDate();
-    //var startDay = new Date(year, month, 1).getDay();
+    var url = $('#get-month-events-url').attr('data-url'); //get the reversed url from django template
 
     //query the database for all event information for the new month
     //sends a GET request to the page rendered by the get_month_events view in views.py
-    $.get('/get_month_events/',             //URL to send the request to
-          {newYear: year, newMonth: month}, //data to send in the request
-	  function(data) {                  //function to handle the response
-	      var days = JSON.parse(data);  //parse JSON message from python view
-
+    $.get(url,//'/get_month_events/',              //URL to send the request to
+          {newYear: year, newMonth: month},  //data to send in the request
+	  function(data) {                   //function to handle the response
+	      var package = JSON.parse(data);//parse JSON message from python view
+	      var days = package["dayList"]; //get the list of days in the calendar
+	      var url = package["url"]       //get the reversed url for the events page
 	      //compose html string
 	      var html = "";
 	      var gridNum = 0;
-	      for(var d in days) { //for each day/box on the calendar,
+	      for(var d in days) {           //for each day/box on the calendar,
 		  day = days[d];
 		  var num = day["day"];
 		  var events = day["events"];
@@ -78,17 +77,18 @@ var genCalendar = function() {
 		  
 		  html += "<td";             //a new data (column) for this row
 		  //check for inactive days (belonging to prev or next month)
-		  if(!day["active"]){ html += " class=\"inactive\"";}
+		  if(day["active"] == -1){ html += " class=\"inactive\"";} //if not this month, inactive
+		  else if(day["active"] == 1){ html += " class=\"today\"";}//if today, mark today
 		  html += "><div>";
 
-		  html += ("<span class=\"day\">" + num + "</span>"); //day number
-
-		  for (var e in events) {    //for each event on this day,
+		  html += ("<span class=\"day\">" + num + "</span>");   //day number
+		  for (var e in events) {                               //for each event on this day,
 		      var event = events[e];
-		      html += ("<span class=\"event green\">"  //new event module
-			       + event["hour"] + ":" + event["minute"]
-			       + " " + event["title"] 
-			       + "</span>");
+		      html += (" <a href=\"" + url + "/" +  event["id"] + "\""  //link to event's page
+			       + " <span class=\"event green\">"           //new event module
+			       + event["hour"] + ":" + event["minute"]);   //time
+		      if(event["minute"] == 0){ html += "0";}              //add second 0 if needed
+		      html += (" " + event["title"] + "</span>" + "</a>");
 		  }
 
 		  html += "</div></td>";      //end column for this row
@@ -96,7 +96,7 @@ var genCalendar = function() {
 		      html += "</tr>";
 		  }	
 		  gridNum++;
-	      }
+	      } //end for each day
 
 	      //insert html string into calendar body element on the page
 	      $('#calendar_body').html(html);

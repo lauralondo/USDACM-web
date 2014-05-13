@@ -8,80 +8,87 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acm/css/calendar.css" />
 {% endblock %}
 
-
-
 {% block content-area %}
-
-<!--          
-          <tbody>
-            <tr>
-              <td class="inactive">
-                <div>
-                  <span class="day">30</span>
-                </div>
-              </td>
-             
-              <td>
-                <div>
-                  <span class="day">1</span>
-		  <span class="event green">ACM Club meeting 12:15pm</span>
-		  <span class="event yellow">ACM movie night 6:00pm</span>
-                  <span class="event blue">ZType Tournament 12:30pm</span>
-                </div>
-              </td>            
--->
+<div class="container">
 
 
-<!-- Events Calendar -->
-<div class="row calendar">
-  <div class=" large-10 columns">
-    
-    <!-- Calendar header holds data to be passed to a JavaScript function when prev 
-	 or next are clicked to display the previous or next month in the calendar.
-	 data-year : the currently displayed year
-	 data-month : the currently displayed month -->
-    <div id="cal-head" data-year="{{year}}" data-month="{{month}}">
-      <center>
-	<h3>
-	  <button id="prev-month" class="button tiny" type="button"><<</button>
-	  <span id="title-month"><!--filled by JavaScript--></span>
-	  <span id="title-year"><!--filled by JavaScript--></span>
-	  <button id="next-month" class="button tiny" type="button">>></button>
-	</h3>
-      </center>
-    </div>
-    
-    <table class="calendar">
-      
-      <thead>
-        <tr>
-          <th width="300">Sun</th>
-          <th width="300">Mon</th>
-          <th width="300">Tue</th>
-          <th width="300">Wed</th>
-          <th width="300">Thu</th>
-          <th width="300">Fri</th>
-          <th width="300">Sat</th>
-        </tr>
-      </thead>
-      
-      <tbody id="calendar_body"><!-- filled by JavaScript --></tbody>
-      
-    </table>
+
+
+
+  <div class="page-header">
+    <h1>Events <small>What's happening in ACM!?</small>  <a class="btn btn-success pull-right" href={% url 'usdacm.views.create_event' %}>Create Event</a></h1>
   </div>
+  
+
+
+  <!-- Events Calendar -->
+  <div class="row calendaar">
+    <div class="col-xs-12">
+      
+      <!-- Calendar header holds data to be passed to a JavaScript function when prev 
+	   or next are clicked to display the previous or next month in the calendar.
+	   data-year : the currently displayed year
+	   data-month : the currently displayed month -->
+      <div id="cal-head" data-year="{{year}}" data-month="{{month}}">
+	<center>
+	  <h3>
+	    <button id="prev-month" class="btn btn-default" type="button">
+	      <span class="glyphicon glyphicon-chevron-left"></span>
+	    </button>
+	    <span style="display:inline-block; width:8em;">
+	      <span id="title-month"><!--filled by JavaScript--></span>
+	      <span id="title-year"><!--filled by JavaScript--></span>
+	    </span>
+	    <button id="next-month" class="btn btn-default" type="button">
+	      <span class="glyphicon glyphicon-chevron-right"></span>
+	    </button>
+	  </h3>
+	</center>
+      </div>
+      
+      <table class="calendar">
+	<div id="get-month-events-url" class="hidden" data-url="{% url 'usdacm.views.get_month_events' %}"></div>
+	<thead>
+          <tr>
+            <th width="300">Sun</th>
+            <th width="300">Mon</th>
+            <th width="300">Tue</th>
+            <th width="300">Wed</th>
+            <th width="300">Thu</th>
+            <th width="300">Fri</th>
+            <th width="300">Sat</th>
+          </tr>
+	</thead>
+	
+	<tbody id="calendar_body"><!-- filled by JavaScript --></tbody>
+	
+      </table>
+    </div>
+  </div>
+  <!-- end Events Calendar -->
+  
+  
+
+  <!-- Upcomming Events list -->
+  <br><br>
+  <h2>Upcomming Events</h2>
+  
+  {% for event in events %}
+  <div>
+    {% if event.pic %}
+    <!--img class="img-200 img-rounded" src='{{event.pic.url}}'--> 
+    {% endif %}
+    {{event.date}} {{event.title}}
+  </div>
+  {% endfor %}
+  
+  
+  
+
+
+
+
 </div>
-<!-- end Events Calendar -->
-
-
-
-
-ACM Events:<br>
-{% for event in events %}
--{{event.title}}<br>
-{% endfor %}
-
-
-
 {% endblock %}
 
 

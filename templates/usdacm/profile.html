@@ -1,28 +1,43 @@
 {% extends "usdacm/base.html" %}
 
-
 {% block window-title %}
 | {{member.firstName}} {{member.lastName}}
 {% endblock %}
 
-
-
 {% block content-area %}
-<br>
-Welcome to {{member.firstName}}'s Profile Page!! how exciting!<br><br>
-
-<span>
-{% if member.pic %}
-<img id="avatar_lg" src="{{member.pic.url}}">
-{% else %}
 {% load staticfiles %}
-<img id="avatar_lg" src="{% static "acm/img/default_pic.png" %}">
-{% endif %}
-</span>
+<div class="container">
 
-<span>
-<p>name: {{member.title}} {{member.firstName}} {{member.lastName}}</p>
-<p>major: {{member.major}}</p>
-<p>about: {{member.aboutMe}}</p>
+
+
+
+
+
+  <div class="page-header">
+    <h1>{{member.firstName}} <small> Welcome to {{member.firstName}}'s profile!! How exciting!</small></h1>
+  </div>
+
+  
+  
+  <span>
+    {% if member.pic %}
+    <img class="img-200 img-rounded" src="{{member.pic.url}}">
+    {% else %}
+    <img class="img-200 img-rounded" src="{% static "acm/img/default_pic.png" %}">
+    {% endif %}
+  </span>
+  
+  <span>
+    <p>name: {{member.title}} {{member.firstName}} {{member.lastName}}</p>
+    <p>major: {{member.major}}</p>
+    <p>about: {{member.aboutMe}}</p>
+  </span>
+
+
+
+
+
+
+</div>
 {% endblock %}
-</span>
+

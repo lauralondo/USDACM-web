@@ -4,90 +4,86 @@
 | Tutoring Schedule
 {% endblock %}
 
-
 {% block content-area %}
+<div class="container">
 
 
 
-<table>
-  <tr>
-    <th>Monday</th>
-    <td>
-      <table>
-      {% for time in monday %}
-      <tr><td>{{time}}</td></tr>
-      {% endfor %}
-      </table>
-    </td>
-  </tr>
 
-  <tr>
-    <th>Tuesday</th>
-    <td>
-      <table>
-      {% for time in tuesday %}
-      <tr><td>{{time}}</td></tr>
-      {% endfor %}
-      </table>
-    </td>
-  </tr>
 
-  <tr>
-    <th>Wednesday</th>
-    <td>
-      <table>
-      {% for time in wednesday %}
-      <tr><td>{{time}}</td></tr>
-      {% endfor %}
-      </table>
-    </td>
-  </tr>
 
-  <tr>
-    <th>Thursday</th>
-    <td>
-      <table>
-      {% for time in thursday %}
-      <tr><td>{{time}}</td></tr>
-      {% endfor %}
-      </table>
-    </td>
-  </tr>
+  <div class="page-header">
+      <h1>ACM Tutoring <small> Get CS help here!</small></h1>
+  </div>
 
-  <tr>
-    <th>Friday</th>
-    <td>
-      <table>
-      {% for time in friday %}
-      <tr><td>{{time}}</td></tr>
-      {% endfor %}
-      </table>
-    </td>
-  </tr>
 
-  <tr>
-    <th>Saturday</th>
-    <td>
-      <table>
-      {% for time in saturday %}
-      <tr><td>{{time}}</td></tr>
-      {% endfor %}
-      </table>
-    </td>
-  </tr>
 
-  <tr>
-    <th>Sunday</th>
-    <td>
-      <table>
-      {% for time in sunday %}
-      <tr><td>{{time}}</td></tr>
-      {% endfor %}
-      </table>
-    </td>
-  </tr>
+  <div class="row">
+    
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+	<div class="panel-heading"><h3>Tutoring Hours</h3></div>
+	<table class="table">	  
+	  <tbody>
+	    {% for day in days %}
+	    <tr>
+	      
+	      <td> <h4>{{day.day}}</h4> </td>
 
-</table>
+	      
+	      <td>	
+		{% for ttime in day.ttimes %}
+		<div>
+		  
+		  <span id="ttime-time">{{ttime.start}} - {{ttime.end}}</span>
+		  
+		  <span id="ttime-member">
+		    <a href={% url 'usdacm.views.profile' ttime.member.user.username %}><span class="label label-success">
+		      {{ttime.member.firstName}} {{ttime.member.lastName}}
+		    </span></a>
+		  </span>
+		  
+		  <div id="ttime-note">{{ttime.note}}</div>
+		
+		</div>
+		{% endfor %}
+	      </td>
+
+
+	    </tr>
+	    {% endfor %}
+	  </tbody>
+	</table>
+      </div>
+    </div> <!-- end col -->
+
+
+
+    
+
+    <div class="col-sm-6">
+
+      <hr class="hidden-sm hidden-md hidden-lg">
+     
+      <h3>Need help?</h3>
+      
+      <p style="text-indent: 2em;">Tutoring is available in the <b>Linux Lab, Sera 163</b>. Our volunteer tutors will be available at the posted times, Other CS student are often in the lab during the day, so just ask for help and usually someone will be happy to assist you.</p>
+      
+      <p style="text-indent: 2em;">We will try to keep this list up to date. Check the whiteboard in the Linux Lab for the most accurate information. Remember, the tutors are volunteers, so sometimes they might not be available for the time listed!</p>
+
+      <hr>
+      
+      <h3>Want to give help?</h3>
+      
+      <p style="text-indent: 2em;">Interested in becoming a tutor? Help out your fellow CS students by making yourself available to answer questions and give advice in the lab. Anyone can help out!</p>
+      
+      <div style="padding-bottom:30px;"><a class="btn btn-success pull-right" href={% url 'usdacm.views.tutoring_signup' %}>Become a Tutor!</a></div>
+      
+      <div class="hidden-sm hidden-md hidden-lg"><hr></div>
+    
+
+    </div> <!-- end col -->
+  </div> <!-- end row -->
 
 
 
@@ -95,4 +91,6 @@
 
 
 
+
+</div> <!-- end container -->
 {% endblock %}

@@ -1,144 +1,149 @@
-<!doctype html>
-<html class="no-js" lang="en">
-
+<!DOCTYPE html>
+<html lang="en">
 
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>USD ACM {% block window-title %}{% endblock %}</title>
-    <link rel="shortcut icon" href="{{ STATIC_URL }}acm/img/acm3_16.ico">
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acm/foundation/css/foundation.css" />
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acm/css/usdacm.css" />
-    <script src="{{ STATIC_URL }}acm/foundation/js/vendor/modernizr.js"></script>
-    {% block header-link %}{% endblock %}
+    <link href="{{ STATIC_URL }}acm/img/acm3_16.ico" rel="shortcut icon">
+
+    <!-- Bootstrap -->
+    <link href="{{ STATIC_URL }}acm/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom styles for this template -->
+    <link href="{{ STATIC_URL }}acm/css/usdacm.css" rel="stylesheet" type="text/css">
+    {% block header-link %}{% endblock %} <!--for any additional links -->
   </head>
 
 
 
 
 
+  <!-- page body -->
   <body>
-    <!-- Navigation -->
-
-    <nav class="top-bar" data-topbar>
-      <ul class="title-area">
-	<!-- Title Area -->
-	<li class="name">
-          <h1>
-            <a href={% url 'usdacm.views.index' %}>
-              <img id="usd_logo" src="{{ STATIC_URL }}acm/img/usd_monogram.png" />
-	      <span id="acm_logo"> acm </span>
-	    </a>
-          </h1>
-	</li>
-	<li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-      </ul>
-      
-      <section class="top-bar-section">
-	<!-- Right Nav Section -->
-	<ul class="right">
 
 
-	  <li><a href={% url 'usdacm.views.about' %}>About</a></li>
-	  
-	  
-	  <li class="has-dropdown">
-	    <a href={% url 'usdacm.views.tutoring_schedule' %}>Tutoring</a><!-- was just tutoring -->
-	    <ul class="dropdown">
-	      <li><a href={% url 'usdacm.views.tutoring_schedule' %}>Schedule</a></li>
-              <li><a href={% url 'usdacm.views.tutoring_signup' %}>Sign Up</a></li>
-	    </ul>
-	  </li>
-
-
-          <li><a href={% url 'usdacm.views.events' %}>Events</a></li>
-	
-          <li><a href={% url 'usdacm.views.members' %}>Members</a></li>
-	  
-
-	  <!-- user profile or login  -->
-	  {% if user.is_authenticated %}
-	  <li class="has-dropdown">
-	    <a href={% url 'usdacm.views.profile' user.username %}>{{ user.username }}</a>
-	    <ul class="dropdown">
-	      <li><a href={% url 'usdacm.views.logout_user' %}>Logout</a></li>
-	    </ul>
-	  </li>
-
-	  {% else %}
-	  
-          <li class="has-dropdown">
-	    <a href={% url 'usdacm.views.login_user' %}>Login</a>
-	    <ul class="dropdown">
-	      <li><a href={% url 'usdacm.views.register_user' %}>Join ACM!</a></li>
-	    </ul>
-	  </li>
-	  
-	  {% endif %}
-	  <!-- end login menu -->
-
-	</ul>
-      </section>
-    </nav>
-    
-    <!-- End Top Bar -->
-    
-    
-
-
-
-
-
-
-{% block content-area %}
-{% endblock %}
-
-
-
-
-
-  <!-- Footer -->
-
-  <footer class="row">
-    <div class="large-12 columns"><hr>
-      <div class="row">
-	
-        <div class="large-6 columns">
-          <!--<p>© Copyright none one at all. Go to town.</p>-->
-        </div>
-	
-        <div class="large-6 small-12 columns">
-          <ul class="inline-list right">
-            <li><a href="https://github.com/USDACM">GitHub</a></li>
-            <li><a href="http://www.sandiego.edu/" >USD</a></li>
-	    <li><a href="http://www.sandiego.edu/cas/math-cs">Department</a></li>
-            <li><a href="http://www.acm.org/"      >ACM</a></li>
-          </ul>
-        </div>
-	
-      </div>
-    </div>
-  </footer>
+    <div id="wrap">
   
 
 
-    <!-- End Footer -->
+    <!-- NAVBAR ------------------------------------------------------------->
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" 
+		  class="navbar-toggle" 
+		  data-toggle="collapse" 
+		  data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+	  
+          
+	  <a class="navbar-brand" href={% url 'usdacm.views.index' %}>
+            <div>
+	      <img id="usd_logo" src="{{ STATIC_URL }}acm/img/usd_monogram.png" />
+	      <span id="acm_logo"> acm </span>
+	    </div>
+	  </a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+	    <li><a href={% url 'usdacm.views.about' %}>About</a></li>
+	    
+            <li class="dropdown">
+              <a href={% url 'usdacm.views.tutoring_schedule' %} 
+		 class="dropdown-toggle" 
+		 data-toggle="dropdown">Tutoring <b class="caret"></b></a>
+	      <ul class="dropdown-menu dropdown-inverse">
+		<li><a href={% url 'usdacm.views.tutoring_schedule' %}>Schedule</a></li>
+		<li><a href={% url 'usdacm.views.tutoring_signup' %}>Sign Up</a></li>	
+              </ul>
+            </li>
+	    
+            <li><a href={% url 'usdacm.views.events' %}>Events</a></li>
+            <li><a href={% url 'usdacm.views.members' %}>Members</a></li>
+	    
+	    {% if user.is_authenticated %}
+	    <li class="dropdown">
+	      <a href={% url 'usdacm.views.profile'
+		 class="dropdown-toggle" 
+		 data-toggle="dropdown">{{ user.username }} <b class="caret"></b></a>
+	      <ul class="dropdown-menu dropdown-inverse">
+		<li><a href={% url 'usdacm.views.profile' user.username %}>Profile</a></li>
+		<li><a href={% url 'usdacm.views.logout_user' %}>Logout</a></li>
+              </ul>
+            </li>
+	    {% else %}
+            <li class="dropdown">
+	      <a href={% url 'usdacm.views.login_user' %} 
+		 class="dropdown-toggle" 
+		 data-toggle="dropdown">Login <b class="caret"></b></a>
+	      <ul class="dropdown-menu dropdown-inverse">
+		<li><a href={% url 'usdacm.views.login_user' %}>Login</a></li>
+		<li><a href={% url 'usdacm.views.register_user' %}>Join ACM!</a></li>
+	      </ul>
+	    </li>
+	    {% endif %}
+	    
+          </ul>
+        </div><!-- end nav-collapse -->
+      </div><!-- end container -->
+    </div><!-- end navbar -->
+    
+    
 
-  <!--<script>
-  document.write('<script src=js/vendor/' +
-  ('__proto__' in {} ? 'zepto' : 'jquery') +
-  '.js><\/script>')
-  </script>-->
-  <script src="{{ STATIC_URL }}acm/foundation/js/vendor/jquery.js"></script>
-  <script src="{{ STATIC_URL }}acm/foundation/js/foundation.min.js"></script>
-  <script>
-    $(document).foundation();
-  </script>
-  {% block footer-script %}
-  {% endblock %}
-<!-- End Footer -->
 
 
-</body>
+
+    <!-- filled with page content for each individual view -------------------------->
+    {% block content-area %}
+    {% endblock %}
+    <div id="push"></div>
+    </div> <!-- end wrap -->
+    
+    
+    
+    
+    
+    
+    <!-- FOOTER --------------------------------------------------------------------->
+    <div id="footer">
+      <div class="container">
+	<p class="hidden-xs v-center pull-left">built with Twitter Bootstrap</p>
+	<table class="pull-right" id="v-center">
+	  <tr>
+	    <td><a href="https://github.com/USDACM">GitHub</a></td>
+            <td><a href="https://www.sandiego.edu">USD</a></td>
+            <td><a href="https://www.sandiego.edu/cas/math-cs">Department</a></td>
+	    <td><a href="https://www.acm.org">ACM</a></td>
+	  </tr>
+	</table>
+      </div>
+    </div><!-- end footer -->
+   
+
+
+
+
+
+    
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ STATIC_URL }}acm/bootstrap/js/bootstrap.min.js"></script>
+    <!-- any other scripts to include in the template -->
+    {% block footer-script %}{% endblock %}
+  </body>
 </html>
-

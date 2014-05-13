@@ -1,22 +1,71 @@
 {% extends "usdacm/base.html" %}
+{% load custom_filters %}
 
 {% block window-title %}
 | Tutoring Sign-Up
 {% endblock %}
 
-
 {% block content-area %}
+<div class="container">
 
 
-<form  method=post enctype="multipart/form-data">{% csrf_token %}
-  <table align="center">
-    {{ form }}
-    <tr>
-      <th colspan="2"><input class="button" type=submit value="Submit"></th>
-    </tr>
-  </table>
-</form>
-* required
+  <div class="page-header">
+    <h1>Tutoring Sign-up</h1>
+  </div>
 
 
+
+  <div style="max-width:30em">
+    <form role="form" method=post enctype="multipart/form-data">{% csrf_token %}
+      
+      {% for field in form %}
+      {% if field.errors %}
+      <div style="margin-bottom:0;"class="alert alert-warning">{{field.errors}}</div>
+      {% endif %}
+      
+      
+      
+      <div class="form-group">
+	<div class="input-group">
+	  <span class="input-group-addon">
+	    {% if field.field.required %} <b>{{field.label}}</b>
+	    {% else %} {{field.label}} {% endif %}
+	  </span>
+
+	  {% if field.html_name  == "day"  %}
+	  <select class="form-control" name={{field.html_name}}>
+	    <option>Monday</option>
+	    <option>Tuesday</option>
+	    <option>Wednesday</option>
+	    <option>Thursday</option>
+	    <option>Friday</option>
+	  </select>
+
+	  {% else %}	  
+	  <input autofocus="autofocus"
+		 type={{ field.field.widget|widget_type }}
+		 class="form-control" 
+		 name={{field.html_name}}
+		 {% if field.value %}value={{ field.value }}{% endif %}
+		 placeholder={{field.label}}>
+	  {% endif %}
+
+	</div>
+      </div>
+      {% endfor %}
+      <button type=submit class="btn btn-success pull-right">Sign Up</button>
+      
+    </form>
+
+
+
+  </div>
+  
+
+
+
+
+
+
+</div>
 {% endblock %}

@@ -6,27 +6,39 @@
 
 
 {% block content-area %}
+{% load staticfiles %}
+<div class="container">
 
 
 
-<table>
-
-  {% for member in members %}
-  <tr>
-    <th>
-
-      {% if member.pic %}
-      <img id="avatar_md" src="{{member.pic.url}}">
-      {% else %}
-      {% load staticfiles %}
-      <img id="avatar_md" src="{% static "acm/img/default_pic.png" %}">
-      {% endif %}
-    </th>
-    <th>{{member.firstName}} {{member.lastName}}</th>
-  </tr>
-  {% endfor %}
- 
-</table>
 
 
+
+  <div class="page-header">
+    <h1>Members</h1>
+  </div>
+
+  <table>
+    
+    {% for member in members %}
+    <tr>
+      <th>
+	{% if member.pic %}
+	<img class="img-100 img-rounded" src="{{member.pic.url}}">
+	{% else %}
+	<img class="img-100 img-rounded" src="{% static "acm/img/default_pic.png" %}">
+	{% endif %}
+      </th>
+      <th>{{member.firstName}} {{member.lastName}}</th>
+    </tr>
+    {% endfor %}
+    
+  </table>
+
+
+
+
+
+  
+</div>
 {% endblock %}

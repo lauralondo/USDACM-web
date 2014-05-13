@@ -1,152 +1,135 @@
 {% extends "usdacm/base.html" %}
 
-
 {% block content-area %}
+{% load staticfiles %}
 
+
+
+<!-- Carousel ------------------------------------------------------------->
 <div class="row">
-  <div class="large-12 columns">
-    {% load staticfiles %}
-
-
-    <!-- Content Slider -->
-    
-    <div class="row">
-      <div class="large-12 hide-for-small">
-	    
-        <div id="featured" data-orbit>
-          <img src="{% static "acm/img/ztype1.jpg" %}" alt="slide image">
-  	  <img src="http://placehold.it/1200x500&text=Slide Image 1" alt="slide image">
-          <img src="http://placehold.it/1200x500&text=Slide Image 2" alt="slide image">
-          <img src="http://placehold.it/1200x500&text=Slide Image 3" alt="slide image">
+  <div class="col-lg-12">    
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+	
+	<div class="item active">
+	  <img src="{% static "acm/img/artshow1.jpg" %}" alt="First slide">
+          <!--img data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide" alt="First slide"-->
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Example headline.</h1>
+              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+            </div>
+          </div>
+        </div>
+        
+	<div class="item">
+          <img src="{% static "acm/img/artshow2.jpg" %}" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Rachel Lincoln & Brianna Castaldo</h1>
+              <p>The first place winners of the 2014 ACM Digital Art Show!</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+            </div>
+          </div>
+        </div>
+	
+	<div class="item">
+	  <img src="{% static "acm/img/artshow3.jpg" %}" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>ACM Digital Art Show</h1>
+              <!--p>blah blah blah</p-->
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+            </div>
+          </div>
         </div>
 	
       </div>
-    </div>
- 
-    <!-- End Content Slider -->
- 
-
-    <!-- Mobile Header -->
-    <div class="row">
-      <div class="large-12 columns show-for-small">
-        <img src="http://placehold.it/1200x700&text=Mobile Header">
-      </div>
-    </div><br>
-    <!-- End Mobile Header -->
-
-
-
-
-
-    <div class="row">
-      <div class="large-12 columns">
-        <div class="row">
-
-
-
-
-
-
-          <!-- Events -->
-          <div class="large-4 small-6 columns">
-            <h4>Upcomming Events</h4><hr>
-	    
-	    
-	    {% for event in first_event %}
-	    
-            <div class="row">
-              <div class="large-1 column">
-                <img src="http://placehold.it/50x50&text=[img]">
-              </div>
-	      
-              <div class="large-9 columns">
-                <h5><a href="#">{{event.title}}</a></h5>
-                <h6 class="subheader show-for-small">{{event.text}}</h6>
-              </div>
-            </div><hr>
-	    
-	    {% endfor %}
-	    
-	    
-	    <!-- hides the rest of the events if browser width is too small -->
-            <div class="hide-for-small">
-	      
-	      {% for event in rest_events %}
-              <div class="row">
-                <div class="large-1 column">
-                  <img src="http://placehold.it/50x50&text=[img]">
-                </div>
-		
-                <div class="large-9 columns">
-                  <h5 class="subheader"><a href="#">{{event.title}}</a></h5>
-                </div>
-              </div><hr>
-	      {% endfor %}
-	      
-            </div>
-	    
-	    <a href={% url 'usdacm.views.events' %} class="right">All Events »</a>
-          </div>
-          <!-- End Events -->
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-          <!-- Image -->
-          <div class="large-4 small-6 columns">
-            <img src="{% static "acm/img/ztypechamp.jpg" %}">
-          </div>
-          <!-- End Image -->
-	  
-	  
-	  
-	  
-	  
-
-
-          <!-- Announcements -->
-          <div class="large-4 small-12 columns">
-            <h4>Announcements</h4><hr>
-	    
-	    
-            <div class="panel">
-              <h5><a href="#">Announcement Title 1</a></h5>
-              <h6 class="subheader">blah blah blah, stuff stuff stuff</h6>
-              <h6><a href="#">Read More »</a></h6>
-            </div>
-	    
-	    
-	    
-            <div class="panel hide-for-small">
-              <h5><a href="#">Announcement Title 2 »</a></h5>
-            </div>
-	    
-	    
-            <div class="panel hide-for-small">
-              <h5><a href="#">Announcement Title 3 »</a></h5>
-            </div>
-	    
-	    
-	    
-            <a href="#" class="right">Go To Blog »</a>
-          </div>
-          <!-- End Announcements -->
-	  
-	  
-	  
-	  
-	  
-	  
-        </div>
-      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+	<span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+	<span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
     </div>
     
+  </div> <!-- end col -->
+</div> <!-- end row --> 
+<!-- end carousel -->
+
+
+
+
+
+<div class="container"> 
+  <div class="row"> 
+
+ 
+    <!-- Announcements -->
+    <div id="section" class="col-xs-12 col-sm-12 col-md-4">
+      <h2 id="section-headd">Announcements</h2>
+      
+      <div class="panel">
+	<h5><a href="#">Announcement Title 1</a></h5>
+	<h6 class="subheader">blah blah blah, stuff stuff stuff. kjh tdygkjh jkhg kfhjk  jhg kjh j jh hkjhgj hkhgk h h kjh  kjhg kjhgkjhg jkh hjg kjhg jgkj ghjg kjhg kjhg khg kh jk gk hkj gjkgk </h6>
+	<h6><a href="#">Read More »</a></h6>
+      </div>
+      
+      <div class="panel hide-for-small">
+	<h5><a href="#">Announcement Title 2 »</a></h5>
+      </div>
+      
+      <div class="panel hide-for-small">
+	<h5><a href="#">Announcement Title 3 »</a></h5>
+      </div>
+      <a class="btn btn-sm btn-success pull-right" href={% url 'usdacm.views.announcements' %}>all anonuncements »</a>
+    </div>
+    <!-- end Announcements -->
+    
+        
+    <!-- Events -->
+    <div id="section" class="col-xs-12 col-sm-6 col-md-4 col-md-push-4">
+      <h2 id="section-headd">Upcomming Events</h2><hr>
+      
+      {% for event in events %}
+      <div class="media">
+	<a class="pull-left" href="#">
+	  {% if event.pic %}
+	  <img class="media-object img-50" src={{ event.pic.url }} alt="{{event.title}}">
+	  {% else %}
+	  <img class="media-object" src="http://placehold.it/50x50&text=[img]" alt="{{event.title}}">
+	  {% endif %}
+	</a>
+	<div class="media-body">
+	  
+	  <h4 class="media-heading"><a href={% url 'usdacm.views.event' event.id %}>{{event.title}}</a></h4>
+	  <p>{{event.text}}</p>
+	</div>
+      </div><hr>
+      {% endfor %}  
+      
+      <a class="btn btn-sm btn-success pull-right" href={% url 'usdacm.views.events' %}>all events »</a>
+    </div>
+    <!-- end Events -->
     
     
-  </div>
-</div>
+    <!-- Image -->
+    <div id="section" class="col-xs-12 col-sm-6 col-md-4 col-md-pull-4">
+      <div id="image-wrap" >
+	<img id="homepage-image" src="{% static "acm/img/ztypechamp.jpg" %}">
+      </div>
+    </div>
+    <!-- End Image -->
+
+
+  </div> <!-- end row -->
+</div> <!-- end container -->
 
 {% endblock %}

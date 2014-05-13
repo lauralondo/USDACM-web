@@ -1,0 +1,33 @@
+{% extends "usdacm/base.html" %}
+
+{% block window-title %}
+| Edit Event - {{event.title}}
+{% endblock %}
+
+{% block content-area %}
+<div class="container">
+
+
+
+<div class="page-header">
+  <h1>{{ event.title }} <small> Edit Event</small>
+    <span class="page-header-buttons pull-right">   
+      <a class="btn btn-default btn-xs"
+	 href={% url 'usdacm.views.event' event.id %}>
+	cancel
+      </a>
+    </span>
+  </h1>
+</div>
+
+
+
+
+
+
+
+<a href={% url 'usdacm.views.event' event.id %} class="btn btn-success btn-lg pull-right">Submit</a>
+
+
+</div> <!-- end container -->
+{% endblock %}

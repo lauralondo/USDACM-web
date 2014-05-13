@@ -3,18 +3,19 @@ from django import forms
 from django.contrib.auth.models import User
 
 from django.forms import ModelForm
-from models import Member, Event, Announcement, TutoringTime
+from models import Member, Event, Announcement, TutoringTime, Comment
+
 
 
 class RegistrationForm(forms.Form):
-    username = forms.CharField(label=u'*Username', max_length=30)
-    email = forms.EmailField(label=u'*Email')
+    username = forms.CharField(label=u'Username', max_length=30)
+    email = forms.EmailField(label=u'Email')
     password1 = forms.CharField(
-        label=u'*Password',
+        label=u'Password',
         widget=forms.PasswordInput()
         )
     password2 = forms.CharField(
-        label=u'*Password (Again)',
+        label=u'Password (again)',
         widget=forms.PasswordInput()
         )
     
@@ -38,10 +39,13 @@ class RegistrationForm(forms.Form):
         raise forms.ValidationError(u'Username is already taken.')
 
 
+
+
+
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
-        exclude = ['user','aboutMe','title']
+        exclude = ['user','aboutMe','title', 'pic', 'major']
 
 
 class TutoringTimeForm(forms.ModelForm):
@@ -49,7 +53,18 @@ class TutoringTimeForm(forms.ModelForm):
         model = TutoringTime
         exclude = ['member']
 
+
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        #exclude = ['member']
+        exclude = ['created_by', 'last_modified_by']
+
+class AnnouncementForm(forms.ModelForm):
+    class Meta:
+        model = Announcement
+        exclude = ['created', 'created_by', 'last_modified', 'last_modified_by']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ['member', 'event', 'date']

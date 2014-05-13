@@ -1,0 +1,135 @@
+{% extends "usdacm/base.html" %}
+{% load staticfiles %}
+{% load custom_filters %}
+
+{% block window-title %}
+| {{event.title}}
+{% endblock %}
+
+{% block content-area %}
+<div class="container"> 
+
+
+
+  <div class="page-header">
+    <h1>{{event.title}}
+      <span class="page-header-buttons pull-right">   
+	<a class="btn btn-success btn-xs"
+	   href={% url 'usdacm.views.edit_event' event.pk %}>
+	  Edit Event
+	</a>
+	<a class="btn btn-danger btn-xs"
+	   href={% url 'usdacm.views.delete_event' event.pk %}>
+	  Delete Event
+	</a>
+      </span>
+    </h1>
+  </div>
+  
+  
+  
+  {% if event.pic %}
+  <span><img class="img-wide-200 img-rounded"src='{{event.pic.url}}'/></span>
+  {% endif %}
+  
+  
+  <span>
+    <div><h3>{{event.date}}</h3></div>
+    <div>{{event.text}}</div>
+    <div>- posted by 
+      {% if user.is_authenticated %}
+      {{event.created_by.firstName}} {{event.created_by.lastName}}
+      {% else %}
+      {{event.created_by.user.username}}
+      {% endif %}
+     - {{event.created}}.</div>
+  
+    {% if modified %}
+    <div>- last modified by 
+      {% if user.is_authenticated %}
+      {{event.last_modified_by.firstName}} {{event.last_modified_by.lastName}}
+      {% else %}
+      {{event.last_modified_by.user.username}}
+      {% endif %}
+     - {{event.last_modified}}.</div>
+    {% endif %}
+  </span>
+
+  </span>
+
+
+
+
+
+<!-- comments -->
+  <br><br>
+  <h4>Comments:</h4>
+  
+<div class="comments">
+  <table>
+    {% for comment in comments %}
+    <tr>
+      <td class="comments-img">
+	<a href={% url 'usdacm.views.profile' comment.member.user.username %}>
+	  {% if comment.member.pic %}
+	  <img class="img-50" src="{{comment.member.pic.url}}">
+	  {% else %}
+	  <img class="img-50" src="{% static "acm/img/default_pic.png" %}">
+	  {% endif %}
+	</a>
+      </td>
+      <td>
+	<div class="comments-body">
+	  <div><b>{{comment.member}}:</b></div>
+	  <div>{{comment.text}}</div>
+	  <div class="comments-date"><small>{{comment.date}}</small></div>
+	</div>
+      </td>
+    </tr>
+    {% endfor %}  
+  </table>
+</div>
+
+
+
+<!-- comment form -->
+{% if user.is_authenticated %}
+<div>
+  <form role="form" method=post enctype="multipart/form-data">{% csrf_token %}
+    {% for field in commentForm %}
+    {% if field.errors %}
+    <div style="margin-bottom:0;"class="alert alert-warning">{{field.errors}}</div>
+    {% endif %}
+    
+    <div class="form-group">
+      <div class="input-group">
+	<input type={{ field.field.widget|widget_type }}
+	       class="form-control" 
+	       name={{field.html_name}}
+	       
+	       {% if field.value %}value={{ field.value }}{% endif %}
+	       placeholder={{field.label}}>
+	
+	<span class="input-group-btn">
+	  <button class="btn btn-success" type=submit>enter</button>
+	</span>
+      </div>
+    </div>
+    {% endfor %}
+    
+  </form>
+</div>
+{% else %}
+<a class="btn btn-success btm-sm pull-right" href={% url 'usdacm.views.login_user' %}>
+  Log in to Comment
+</a>
+{% endif %}
+
+  
+
+
+
+
+
+</div>
+{% endblock %}

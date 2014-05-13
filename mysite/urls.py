@@ -23,17 +23,24 @@ urlpatterns = patterns('',
     (r'^about/$', 'usdacm.views.about'),
     (r'^members/$', 'usdacm.views.members'),
 
-
+    (r'^event/(?P<eventId>\d+)/$', 'usdacm.views.event'),
     (r'^events/$', 'usdacm.views.events'),
-    (r'^events/(?P<year>\d+)/(?P<month>\d+)/$', 'usdacm.views.events'),
-
+    (r'^events/create/$', 'usdacm.views.create_event'),
+    (r'^event/edit/(?P<eventId>\d+)/$', 'usdacm.views.edit_event'),
+    (r'^event/delete/(?P<eventId>\d+)/$', 'usdacm.views.delete_event'),
     (r'^get_month_events/$', 'usdacm.views.get_month_events'),
 
-    (r'^events/create/$', 'usdacm.views.create_event'),
     (r'^announcements/$', 'usdacm.views.announcements'),
+    (r'^announcement/(?P<announcementId>\d+)/$', 'usdacm.views.announcement'),
+    (r'^announcement/create/(?P<announcementId>\d+)/$', 'usdacm.views.create_announcement'),
+    (r'^announcement/edit/(?P<announcementId>\d+)/$', 'usdacm.views.edit_announcement'),
+    (r'^announcement/delete/(?P<announcementId>\d+)/$', 'usdacm.views.delete_announcement'),
+
     (r'^tutoring/$', 'usdacm.views.tutoring'),
     (r'^tutoring/schedule/$', 'usdacm.views.tutoring_schedule'),
     (r'^tutoring/sign-up/$', 'usdacm.views.tutoring_signup'),
+    (r'^tutoring/delete/(?P<ttimeId>\d+)/$', 'usdacm.views.tutoring_delete'),
+
 
     (r'^artshow/$', 'artshow.views.submissions'),
     (r'^artshow/new_submission/$', 'artshow.views.new_submission'),

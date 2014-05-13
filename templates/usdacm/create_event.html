@@ -1,4 +1,5 @@
 {% extends "usdacm/base.html" %}
+{% load custom_filters %}
 
 
 {% block window-title %}
@@ -8,18 +9,73 @@
 
 
 {% block content-area %}
+<div class="container">
+  
+  <div class="page-header">
+    <h1>New Event</h1>
+  </div>
+
+    
 
 
-<form  method=post enctype="multipart/form-data">{% csrf_token %}
-  <table align="center">
-    {{ form }}
-    <tr>
-      <th colspan="2"><input class="button" type=submit value="Register"></th>
-    </tr>
-  </table>
-</form>
-<center>* required</center>
 
+
+
+
+  <div style="max-width:30em">
+    <form role="form" method=post enctype="multipart/form-data">{% csrf_token %}
+
+      {% for field in form %}
+      {% if field.errors %}
+      <div style="margin-bottom:0;"class="alert alert-warning">{{field.errors}}</div>
+      {% endif %}
+      
+
+      
+      <div class="form-group">
+	<div class="input-group">
+	  
+	  <span class="input-group-addon">
+	    {% if field.field.required %} <b>{{field.label}}</b>
+	    {% else %} {{field.label}} {% endif %}
+	  </span>
+	  
+	  <input autofocus="autofocus"
+		 type={{ field.field.widget|widget_type }}
+		 class="form-control" 
+		 name={{field.html_name}}
+		 
+		 {% if field.value %}value={{ field.value }}{% endif %}
+		 placeholder={{field.label}}>
+	  
+	</div>
+      </div>
+      {% endfor %}
+      <button type=submit class="btn btn-success pull-right">Create Event</button>
+      
+    </form>
+  </div>
+
+      
+
+
+  <!--br><br><br>
+  <form  method=post enctype="multipart/form-data">{% csrf_token %}
+    <table align="center">
+      {{ form }}
+      <tr>
+	<th colspan="2"><input class="button" type=submit value="Register"></th>
+      </tr>
+    </table>
+  </form>
+  <center>* required</center-->
+
+
+
+
+
+
+</div>
 
 {% endblock %}
 
