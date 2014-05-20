@@ -1,3 +1,21 @@
+# models.py
+# USD ACM
+# Laura Londo
+# 20 May 2014
+
+
+'''
+Models describe the structure of the tables in the database. A table represents what 
+would be a class in many programming languages where every column in the table is a 
+field or attribute of the class and every row is an instance or individual object of 
+that class. Every table used in the application's database is defined by a model that
+describes all of the different fields of that object as well as their restriction, the 
+relationships to other objects, and methods used to manipulate their data.
+
+'''
+
+
+
 from django.db import models
 from django.contrib.auth.models import User
 import json
@@ -7,12 +25,14 @@ from django.utils import timezone
 
 # Create your models here.
 
-
+# memeber class. used to extend teh default Django user class and provide
+# more information to be submitted. each registered user will be linked with
+# a member object.
 class Member(models.Model):
     user = models.ForeignKey(User,  unique=True)
     firstName = models.CharField(max_length=20)
     lastName = models.CharField(max_length=20)
-    major = models.CharField(max_length=40) #TODO: different type?
+    major = models.CharField(max_length=40, blank=True) #TODO: different type?
     pic = models.FileField(upload_to='acm/members/pics', blank=True)
     aboutMe = models.CharField(max_length=500, blank=True)
     title = models.CharField(max_length=30, blank=True)
@@ -38,14 +58,14 @@ class Announcement(models.Model):
 # object for club events or meetings
 class Event(models.Model):
     title = models.CharField(max_length=100)
-    text = models.CharField(max_length=500)
+    text = models.CharField(max_length=1000)
     pic = models.ImageField(upload_to='acm/events', blank=True)
     date = models.DateTimeField()
     created = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(Member, related_name="event_created_by") #ensures unique foreign key names
     last_modified = models.DateTimeField(auto_now=True)
     last_modified_by = models.ForeignKey(Member, related_name="event_last_modified_by")
-
+ 
     #returns a dictionary of the event details for the js events calendar
     def as_dict(self):
         daate = self.date
@@ -65,7 +85,8 @@ class Event(models.Model):
         return d
     
 
-    # jpeg encoder missing or something
+    # a possible option for resizing images on upload, however 
+    # an error indicates that a jpeg encoder is missing
     '''def save(self):
         super(Event, self).save() #save everything else as normal?
 
@@ -90,8 +111,8 @@ class Event(models.Model):
         return self.title
 
 
-
-class Comment(models.Model):
+# user comments for an event.
+class EventComment(models.Model):
     member = models.ForeignKey(Member)
     event = models.ForeignKey(Event)
     text = models.TextField(max_length=1000)
@@ -101,25 +122,22 @@ class Comment(models.Model):
         return "comment: " + self.text 
 
 
+# user comments for an announcement.
+class AnnouncementComment(models.Model):
+    member = models.ForeignKey(Member)
+    announcement = models.ForeignKey(Announcement)
+    text = models.TextField(max_length=1000)
+    date = models.DateTimeField()
+
+    def __unicode__(self):
+        return "comment: " + self.text
 
 
+# A tutoring time for the tutoring schedule. members are allowed to create many 
+# tutoring times for the hours that they would like to help other students with
+# ther computer science problems.
 class TutoringTime(models.Model):
     member = models.ForeignKey(Member)
-    '''
-    MON = 0
-    TUES = 1
-    WED = 2
-    THURS = 3
-    FRI = 4
-    SAT = 5
-    SUN = 6
-    DAY_CHOICES = (
-        (MON, 'Monday'),
-        (TUES, 'Tuesday'),
-        (WED, 'Wednesday'),
-        (THURS, 'Thursday'),
-        (FRI, 'Friday')
-        )'''
     DAY_CHOICES = (
         ('Monday', 'Monday'),
         ('Tuesday', 'Tuesday'),
@@ -127,7 +145,7 @@ class TutoringTime(models.Model):
         ('Thursday', 'Thursday'),
         ('Friday', 'Friday')
         )
-    day = models.CharField(choices=DAY_CHOICES, max_length=10)
+    day = models.CharField(choices=DAY_CHOICES, max_length=10) #limited to the provided weekdays
     start = models.TimeField()
     end = models.TimeField()
     note = models.CharField(max_length=150, blank=True)
@@ -137,14 +155,15 @@ class TutoringTime(models.Model):
                                    self.member.firstName, self.member.lastName)
 
 
-
+# slide for the home page image carousel. Provides an image and optional short title
+# and description. also allows the creation of a button to link to another page.
 class CarouselSlide(models.Model):
     position = models.IntegerField()
-    pic = models.ImageField(upload_to='acm/index/carousel')
+    image = models.ImageField(upload_to='acm/index/carousel')
     headline = models.CharField(max_length=100, blank=True)
     description = models.TextField(max_length = 200, blank=True)
-    button = models.CharField(max_length=30, blank=True)
-    button_link = models.CharField(max_length=300, blank=True)
+    button_text = models.CharField(max_length=20, blank=True)
+    button_url = models.URLField(blank=True)
     
     def __unicode__(self):
         stri = "Carousel Slide " + str(self.position)

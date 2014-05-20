@@ -1,9 +1,27 @@
+<!-- tutoring_schedule.html 
+     USD ACM
+     Laura Londo
+     19 May 2014
+
+     Template for the tutoring page. This page displays the current tutoring schedule
+     so that CS student can find help with their programming and other needs. INformation
+     about ACM tutoring is provided to tell students what they can expect and where to
+     go to find the tutoring area. The page also provides a link for users to sign up for
+     tutoring hours.
+  -->
+
+<!-- this template extends the base.html. The following blocks on this page override 
+     the blocks defined in the base template. -->
 {% extends "usdacm/base.html" %}
 
+<!-- appends text to the window/tab title -->
 {% block window-title %}
 | Tutoring Schedule
 {% endblock %}
 
+
+
+<!-- overrides the base content area -->
 {% block content-area %}
 <div class="container">
 
@@ -11,13 +29,14 @@
 
 
 
-
+  <!-- page title -->
   <div class="page-header">
       <h1>ACM Tutoring <small> Get CS help here!</small></h1>
   </div>
 
 
 
+  <!-- tutoring schedule table -->
   <div class="row">
     
     <div class="col-sm-6">
@@ -25,14 +44,14 @@
 	<div class="panel-heading"><h3>Tutoring Hours</h3></div>
 	<table class="table">	  
 	  <tbody>
-	    {% for day in days %}
+	    {% for day in days %} <!--for each day in the table, -->
 	    <tr>
 	      
 	      <td> <h4>{{day.day}}</h4> </td>
 
 	      
 	      <td>	
-		{% for ttime in day.ttimes %}
+		{% for ttime in day.ttimes %} <!-- for eath time slot assigned for that day -->
 		<div>
 		  
 		  <span id="ttime-time">{{ttime.start}} - {{ttime.end}}</span>
@@ -42,7 +61,17 @@
 		      {{ttime.member.firstName}} {{ttime.member.lastName}}
 		    </span></a>
 		  </span>
+
+		  <!-- if the currently logged-in user owns this ttime allow deletion or editing-->
+		  {% if ttime.member.id == user.id %}
+		  <span>
+		    <a class="btn btn-danger btn-xs" href={% url 'usdacm.views.tutoring_delete' ttime.id %}>
+		      <span class="glyphicon glyphicon-remove"></span>
+		    </a>
+		  </span>
+		  {% endif %}
 		  
+		  <!--an extra note about the current time slot if extra information is needed -->
 		  <div id="ttime-note">{{ttime.note}}</div>
 		
 		</div>
@@ -60,14 +89,14 @@
 
 
     
-
+    <!-- tutoring information -->
     <div class="col-sm-6">
 
       <hr class="hidden-sm hidden-md hidden-lg">
      
       <h3>Need help?</h3>
       
-      <p style="text-indent: 2em;">Tutoring is available in the <b>Linux Lab, Sera 163</b>. Our volunteer tutors will be available at the posted times, Other CS student are often in the lab during the day, so just ask for help and usually someone will be happy to assist you.</p>
+      <p style="text-indent: 2em;">Tutoring is available in the <b>Linux Lab, Sera 163</b>. If you need help with a computer science related problem, need some questions answered, or even just want some advice, stop by and see us. Our volunteer tutors will be available at the posted times to help. Other CS student are often in the lab during the day, so just ask for help and usually someone will be happy to assist you.</p>
       
       <p style="text-indent: 2em;">We will try to keep this list up to date. Check the whiteboard in the Linux Lab for the most accurate information. Remember, the tutors are volunteers, so sometimes they might not be available for the time listed!</p>
 

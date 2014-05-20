@@ -1,20 +1,38 @@
+<!-- events.html 
+     USD ACM
+     Laura Londo
+     19 May 2014
+
+     The events page displays all the events happening in a month. These events are 
+     displayed on the events page using a JavaScript calendar. The custom JavaScript 
+     function provides the calendar content for the current month and all of the events
+     happening that month. A user can click on the previous or next buttons to transition
+     to a different month in the calendar. The button click triggers the JavaScript 
+     callback to send a GET request to the “get_month_events” view made especially to 
+     pass the correct calendar information. The JavaScript function assembles the 
+     information into an HTML string and inserts it into the calendar body tags.
+  -->
+
+<!-- this template extends the base.html. The following blocks on this page override 
+     the blocks defined in the base template. -->
 {% extends "usdacm/base.html" %}
 
+<!-- appends text to the window/tab title -->
 {% block window-title %}
 | Events
 {% endblock %}
 
+<!-- includes an additional css stylesheet in the page header -->
 {% block header-link %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}acm/css/calendar.css" />
 {% endblock %}
 
+<!-- overrides the base content area -->
 {% block content-area %}
 <div class="container">
 
 
-
-
-
+  <!-- page title -->
   <div class="page-header">
     <h1>Events <small>What's happening in ACM!?</small>  <a class="btn btn-success pull-right" href={% url 'usdacm.views.create_event' %}>Create Event</a></h1>
   </div>
@@ -47,7 +65,13 @@
       </div>
       
       <table class="calendar">
+	<!-- a hidden element that retrieves the reverse url for the get_month_events view.
+	     This is necessary because the JavaScript function is not able to get url reversal
+	     information from the server. The script will instead retrieve the url from this
+	     HTML element. -->
 	<div id="get-month-events-url" class="hidden" data-url="{% url 'usdacm.views.get_month_events' %}"></div>
+
+	<!-- day column headers -->
 	<thead>
           <tr>
             <th width="300">Sun</th>
@@ -60,6 +84,7 @@
           </tr>
 	</thead>
 	
+	<!-- the HTML element that is filled in by the JavaScript function -->
 	<tbody id="calendar_body"><!-- filled by JavaScript --></tbody>
 	
       </table>
@@ -78,20 +103,22 @@
     {% if event.pic %}
     <!--img class="img-200 img-rounded" src='{{event.pic.url}}'--> 
     {% endif %}
-    {{event.date}} {{event.title}}
+    <b>{{event.date}}</b>
+    <a href={% url 'usdacm.views.event' event.id %}>
+      {{event.title}}
+    </a>
   </div>
   {% endfor %}
+  <br><br>
   
   
-  
-
-
 
 
 </div>
 {% endblock %}
 
 
+<!-- link an additional script to display the calendar content. -->
 {% block footer-script %}
 <script src="{{ STATIC_URL }}acm/js/usdacm_calendar.js"></script>
 {% endblock %}

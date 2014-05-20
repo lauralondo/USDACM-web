@@ -1,11 +1,37 @@
+<!-- base.html 
+     USD ACM
+     Laura Londo
+     19 May 2014
+
+     This is the base template for all pages on the USDACM website. It lays out the
+     basic elements that must be present in every page: the header, navigation bar, and footer.
+     This template provides four blocks that can be overwriten by the extending file by 
+     declaring a block begining tag with the block name and a blockend tag using the Django 
+     template language. These blocks are the window-title, header-link, content-area, and 
+     footer-script. The extending template must declare an extends tag and the begining and 
+     ending block tags for every block to be overwritten. Any content inside the block tags 
+     of hte extending template will be placed into the corresponding block in the base
+     template. 
+  -->
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
+
+  <!-- HTML header. Contains various metadate for the page and links to the Twitter Bootstrap
+       files needed to use the Bootstrap styles and JavaScript tools. The header also links to
+       the custom css document for this website, usdacm.css. A header-link block is provided
+       if any extending page needs to link additional stylesheets.
+    -->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>USD ACM {% block window-title %}{% endblock %}</title>
+    <title>USD ACM {% block window-title %}{% endblock %}</title> <!-- text to be displayed 
+								       for the window or tab 
+								       name -->
     <link href="{{ STATIC_URL }}acm/img/acm3_16.ico" rel="shortcut icon">
 
     <!-- Bootstrap -->
@@ -19,7 +45,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ STATIC_URL }}acm/css/usdacm.css" rel="stylesheet" type="text/css">
-    {% block header-link %}{% endblock %} <!--for any additional links -->
+    {% block header-link %}{% endblock %} <!--for any additional links in extending pages-->
   </head>
 
 
@@ -30,86 +56,103 @@
   <body>
 
 
+    <!-- this wrapper contains all content that appears above the page footer bar. This
+	 allows the footer to stick to the bottom of the page content when the window height
+	 is short enough to cause content overflow. (When the user has to scroll dowm to
+	 view the rest of the page content) Otherwise, the footer bar will stick to the bottom
+	 of the browser window.
+      -->
     <div id="wrap">
   
 
 
-    <!-- NAVBAR ------------------------------------------------------------->
-    <div class="navbar navbar-inverse" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" 
-		  class="navbar-toggle" 
-		  data-toggle="collapse" 
-		  data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-	  
-          
-	  <a class="navbar-brand" href={% url 'usdacm.views.index' %}>
-            <div>
-	      <img id="usd_logo" src="{{ STATIC_URL }}acm/img/usd_monogram.png" />
-	      <span id="acm_logo"> acm </span>
-	    </div>
-	  </a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            
-	    <li><a href={% url 'usdacm.views.about' %}>About</a></li>
+      <!-- NAVBAR --------------------------------------------------------------------->
+      <!-- This is the Twitter Bootstrap navigation bar. It is used to  provide helpful
+	   menus and links for navigating throughout the website.
+	-->
+      <div class="navbar navbar-inverse" role="navigation">
+	<div class="container">
+          <div class="navbar-header">
+            <button type="button" 
+		    class="navbar-toggle" 
+		    data-toggle="collapse" 
+		    data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
 	    
-            <li class="dropdown">
-              <a href={% url 'usdacm.views.tutoring_schedule' %} 
-		 class="dropdown-toggle" 
-		 data-toggle="dropdown">Tutoring <b class="caret"></b></a>
-	      <ul class="dropdown-menu dropdown-inverse">
-		<li><a href={% url 'usdacm.views.tutoring_schedule' %}>Schedule</a></li>
-		<li><a href={% url 'usdacm.views.tutoring_signup' %}>Sign Up</a></li>	
-              </ul>
-            </li>
-	    
-            <li><a href={% url 'usdacm.views.events' %}>Events</a></li>
-            <li><a href={% url 'usdacm.views.members' %}>Members</a></li>
-	    
-	    {% if user.is_authenticated %}
-	    <li class="dropdown">
-	      <a href={% url 'usdacm.views.profile'
-		 class="dropdown-toggle" 
-		 data-toggle="dropdown">{{ user.username }} <b class="caret"></b></a>
-	      <ul class="dropdown-menu dropdown-inverse">
-		<li><a href={% url 'usdacm.views.profile' user.username %}>Profile</a></li>
-		<li><a href={% url 'usdacm.views.logout_user' %}>Logout</a></li>
-              </ul>
-            </li>
-	    {% else %}
-            <li class="dropdown">
-	      <a href={% url 'usdacm.views.login_user' %} 
-		 class="dropdown-toggle" 
-		 data-toggle="dropdown">Login <b class="caret"></b></a>
-	      <ul class="dropdown-menu dropdown-inverse">
-		<li><a href={% url 'usdacm.views.login_user' %}>Login</a></li>
-		<li><a href={% url 'usdacm.views.register_user' %}>Join ACM!</a></li>
-	      </ul>
-	    </li>
-	    {% endif %}
-	    
-          </ul>
-        </div><!-- end nav-collapse -->
-      </div><!-- end container -->
-    </div><!-- end navbar -->
-    
-    
+            <!-- USD ACM logo section of the navigation bar -->
+	    <a class="navbar-brand" href={% url 'usdacm.views.index' %}>
+              <div>
+		<img id="usd_logo" src="{{ STATIC_URL }}acm/img/usd_monogram.png" />
+		<span id="acm_logo"> acm </span>
+	      </div>
+	    </a>
+          </div>
 
-
-
-
-    <!-- filled with page content for each individual view -------------------------->
-    {% block content-area %}
-    {% endblock %}
-    <div id="push"></div>
+	  <!-- the button and menu section of the navigation bar. This section collapses 
+	       int a menu icon when the window width is reduced. -->
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              
+	      <li><a href={% url 'usdacm.views.about' %}>About</a></li>
+	      
+	      <!-- tutoring dropdown menu -->
+              <li class="dropdown">
+		<a href={% url 'usdacm.views.tutoring_schedule' %} 
+		   class="dropdown-toggle" 
+		   data-toggle="dropdown">Tutoring <b class="caret"></b></a>
+		<ul class="dropdown-menu dropdown-inverse">
+		  <li><a href={% url 'usdacm.views.tutoring_schedule' %}>Schedule</a></li>
+		  <li><a href={% url 'usdacm.views.tutoring_signup' %}>Sign Up</a></li>	
+		</ul>
+              </li>
+	      
+              <li><a href={% url 'usdacm.views.events' %}>Events</a></li>
+              
+	      <li><a href={% url 'usdacm.views.members' %}>Members</a></li>
+	      
+	      <!-- user dropdown menu the request context must be passed to the template 
+		   from the view in order to detect the currently logged-in user.-->
+	      {% if user.is_authenticated %} <!-- if the current user is logged in,
+					       display profile and logout options -->
+	      <li class="dropdown">
+		<a href={% url 'usdacm.views.profile'
+		   class="dropdown-toggle" 
+		   data-toggle="dropdown">{{ user.username }} <b class="caret"></b></a>
+		<ul class="dropdown-menu dropdown-inverse">
+		  <li><a href={% url 'usdacm.views.profile' user.username %}>Profile</a></li>
+		  <li><a href={% url 'usdacm.views.logout_user' %}>Logout</a></li>
+		</ul>
+              </li>
+	      {% else %} <!-- else if the current user is not logged in -->
+              <li class="dropdown">
+		<a href={% url 'usdacm.views.login_user' %} 
+		   class="dropdown-toggle" 
+		   data-toggle="dropdown">Login <b class="caret"></b></a>
+		<ul class="dropdown-menu dropdown-inverse">
+		  <li><a href={% url 'usdacm.views.login_user' %}>Login</a></li>
+		  <li><a href={% url 'usdacm.views.register_user' %}>Join ACM!</a></li>
+		</ul>
+	      </li>
+	      {% endif %}
+	      
+            </ul>
+          </div><!-- end nav-collapse -->
+	</div><!-- end container -->
+      </div><!-- end navbar -->
+      
+      
+      
+      
+      
+      
+      <!-- filled with page content from the extending template -->
+      {% block content-area %}
+      {% endblock %}
+      <div id="push"></div>
     </div> <!-- end wrap -->
     
     
@@ -118,6 +161,8 @@
     
     
     <!-- FOOTER --------------------------------------------------------------------->
+    <!-- provides links to external web pages. sticks to th bottom of the wrapped 
+	 content area -->
     <div id="footer">
       <div class="container">
 	<p class="hidden-xs v-center pull-left">built with Twitter Bootstrap</p>
@@ -137,13 +182,14 @@
 
 
 
-    
+    <!-- links to Twitter Bootstrap JavaScript files. Provides a block for extending
+	 templates to link aditional scripts -->
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ STATIC_URL }}acm/bootstrap/js/bootstrap.min.js"></script>
     <!-- any other scripts to include in the template -->
-    {% block footer-script %}{% endblock %}
+    {% block footer-script %}{% endblock %} <!-- for additional scripts in extending templates-->
   </body>
 </html>

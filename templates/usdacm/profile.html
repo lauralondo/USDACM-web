@@ -1,32 +1,48 @@
+<!-- profile.html 
+     USD ACM
+     Laura Londo
+     19 May 2014
+
+     Template for the user profile page. This page displays information about a 
+     specific memebr including their profile picture, name, and other information
+     they wish to provide.
+  -->
+
+<!-- this template extends the base.html. The following blocks on this page override 
+     the blocks defined in the base template. -->
 {% extends "usdacm/base.html" %}
 
+{% load staticfiles %} <!-- loads the server's static files. (needed to display the
+			    default user profile picture) -->
+
+<!-- appends text to the window/tab title -->
 {% block window-title %}
 | {{member.firstName}} {{member.lastName}}
 {% endblock %}
 
+
+<!-- overrides the base content area -->
 {% block content-area %}
 {% load staticfiles %}
 <div class="container">
 
 
-
-
-
-
+  <!-- page title -->
   <div class="page-header">
-    <h1>{{member.firstName}} <small> Welcome to {{member.firstName}}'s profile!! How exciting!</small></h1>
+    <h1>{{member.firstName}} <small> Welcome to {{member.firstName}}'s profile!!</small></h1>
   </div>
 
   
-  
+  <!-- member picture -->
   <span>
-    {% if member.pic %}
+    {% if member.pic %} <!-- if the member has a custom picture, display it -->
     <img class="img-200 img-rounded" src="{{member.pic.url}}">
-    {% else %}
+    {% else %} <!-- else use the default user avatar -->
     <img class="img-200 img-rounded" src="{% static "acm/img/default_pic.png" %}">
     {% endif %}
   </span>
   
+  <!-- other member information -->
   <span>
     <p>name: {{member.title}} {{member.firstName}} {{member.lastName}}</p>
     <p>major: {{member.major}}</p>

@@ -1,3 +1,14 @@
+# custom_filters.py
+# USD ACM
+# Laura Londo
+# 20 May 2014
+
+'''
+	This document provides custom template filters that can be
+	used within the Django template language tags to perform 
+	various tasks. 
+'''
+
 from django import template
 
 register = template.Library()
@@ -25,17 +36,20 @@ def get_range( value ):
   return range( value )
 
 
+# subtracts some ammount from the calling object
 @register.filter    
 def subtract(value, arg):
     return value - arg
 
 
+# gets the class of the calling object
 @register.filter
 def get_class(obj):
   return obj.__class__.__name__
 
 
-
+# returns a string representation of the form field
+# widget type of the given widget.
 @register.filter
 def widget_type(widget):
   type =  widget.__class__.__name__

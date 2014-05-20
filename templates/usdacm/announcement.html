@@ -1,12 +1,12 @@
-<!-- event.html 
+<!-- announcement.html 
      USD ACM
      Laura Londo
      19 May 2014
 
-     Template for the event page. This page displays all of the information about
-     a specific event as well as the comments made on this event's page. If the 
-     current user is logged in, they are able to delete or edit the event and leave new
-     comments.
+     Template for the announcement page. This page displays all of the information about
+     a specific announcement as well as the comments made on this announcement's page. If 
+     the current user is logged in, they are able to delete or edit the announcement and 
+     leave new comments.
   -->
 
 <!-- this template extends the base.html. The following blocks on this page override 
@@ -20,30 +20,30 @@
 
 <!-- appends text to the window/tab title -->
 {% block window-title %}
-| {{event.title}}
+| {{announcement.title}}
 {% endblock %}
 
 
 
-
-<!-- overrides the base content area -->
+<!-- owerrides the base content area -->
 {% block content-area %}
 <div class="container"> 
 
+
   <!-- page title -->
   <div class="page-header">
-    <h1>{{event.title}}
+    <h1>{{announcement.title}}
       <span class="page-header-buttons pull-right">   
 	
 	{% if user.is_authenticated %} <!-- if the current user is logged in,
 					    display extra management options -->
 	<a class="btn btn-success btn-xs"
-	   href={% url 'usdacm.views.edit_event' event.pk %}>
-	  Edit Event
+	   href={% url 'usdacm.views.edit_announcement' announcement.pk %}>
+	  Edit Announcement
 	</a>
 	<a class="btn btn-danger btn-xs"
-	   href={% url 'usdacm.views.delete_event' event.pk %}>
-	  Delete Event
+	   href={% url 'usdacm.views.delete_announcement' announcement.pk %}>
+	  Delete Announcement
 	</a>
 	{% endif %}
 
@@ -52,35 +52,28 @@
   </div>
   
   
-  <!-- event details -->
-
-  <!-- if the event includes an image, display the image -->
-  {% if event.pic %}
-  <span><img class="img-wide-200 img-rounded"src='{{event.pic.url}}'/></span>
-  {% endif %}
-    
+  <!-- announcement details -->
   <span>
-    <div><h3>{{event.date}}</h3></div>
-    <div>{{event.text}}</div>
+    <div>{{announcement.text}}</div>
     <div>- posted by 
       {% if user.is_authenticated %} <!-- if the user is logged in, show the poster's
-					  real name -->
-      {{event.created_by.firstName}} {{event.created_by.lastName}}
+					  real name-->
+      {{announcement.created_by.firstName}} {{announcement.created_by.lastName}}
       {% else %} <!-- else display the username -->
-      {{event.created_by.user.username}}
+      {{announcement.created_by.user.username}}
       {% endif %}
-     - {{event.created}}.</div>
+     - {{announcement.created}}.</div>
   
     {% if modified %} <!-- if the event has been modified since its creation, show
 			   the following -->
     <div>- last modified by 
       {% if user.is_authenticated %} <!-- if the user is logged in, show the poster's
 					  real name-->
-      {{event.last_modified_by.firstName}} {{event.last_modified_by.lastName}}
+      {{announcement.last_modified_by.firstName}} {{announcement.last_modified_by.lastName}}
       {% else %} <!-- else display the username -->
-      {{event.last_modified_by.user.username}}
+      {{announcement.last_modified_by.user.username}}
       {% endif %}
-     - {{event.last_modified}}.</div>
+     - {{announcement.last_modified}}.</div>
     {% endif %}
   </span>
 
@@ -99,25 +92,16 @@
     {% for comment in comments %} <!-- for each comment for this announcement -->
     <tr>
       <!-- comment poster -->
-      <td class="comments-img">
+      <td class="comments-img"> 
 	<a href={% url 'usdacm.views.profile' comment.member.user.username %}>
 	  {% if comment.member.pic %} <!-- if the user has an avatar, display it-->
 	  <img class="img-50" src="{{comment.member.pic.url}}">
-
-
-
-
-
-
-
-
-
-
 	  {% else %} <!-- else display the default user avatar -->
 	  <img class="img-50" src="{% static "acm/img/default_pic.png" %}">
 	  {% endif %}
 	</a>
       </td>
+      
       <td> <!-- comment text -->
 	<div class="comments-body">
 	  <div><b>{{comment.member}}:</b></div>
@@ -131,7 +115,7 @@
 </div>
 
 
-
+ 
 <!-- new comment form -->
 {% if user.is_authenticated %} <!-- only displayed if the current user is logged in -->
 <div>
@@ -147,11 +131,11 @@
 	     preserverd value from the last submission attempt, display the value -->
 	<input type={{ field.field.widget|widget_type }}
 	       class="form-control" 
-	       name={{field.html_name}} 
+	       name={{field.html_name}}
 	       {% if field.value %}value={{ field.value }}{% endif %}
 	       placeholder={{field.label}}> <!-- default placeholder text if the field has 
 						 not been edited -->
-	<!-- the submit bitton -->
+	<!-- the submit button -->
 	<span class="input-group-btn">
 	  <button class="btn btn-success" type=submit>enter</button>
 	</span>
@@ -175,5 +159,3 @@
 
 </div>
 {% endblock %}
-
-

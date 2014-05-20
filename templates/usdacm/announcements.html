@@ -1,22 +1,47 @@
+<!-- announcements.html 
+     USD ACM
+     Laura Londo
+     19 May 2014
+
+     Template for announcements page. This page displays all announcements.
+     comments.
+  -->
+
+<!-- this template extends the base.html. The following blocks on this page override 
+     the blocks defined in the base template. -->
 {% extends "usdacm/base.html" %}
 
+{% load staticfiles %} <!-- loads the server's static files.
+
+<!-- appends text to the window/tab title -->
 {% block window-title %}
 | Announcements
 {% endblock %}
 
+
+
+<!-- overrides the base content area -->
 {% block content-area %}
 <div class="container">
 
 
+  <!-- page title -->
+  <div class="page-header">
+    <h1>Announcements <a class="btn btn-success pull-right" href={% url 'usdacm.views.create_announcement' %}>Create Announcement</a></h1>
+  </div>
 
-
-
-
-  the announcements are unnanounced at this time. come back later.
-
-
-
-
+  <!-- announcement list -->
+  <br><br>
+  <h2>Latest Announcements</h2>
+  
+  {% for announcement in announcements %}
+  <div>
+    <a href={% url 'usdacm.views.announcement' announcement.id %}>
+      {{announcement.title}}
+    </a> - {{announcement.created}}
+  </div>
+  {% endfor %}
+  <br><br>
 
 
 </div>

@@ -1,11 +1,25 @@
+<!-- index.html 
+     USD ACM
+     Laura Londo
+     19 May 2014
+
+     Template for the USD ACM home page. This page provides a glimpse of important club 
+     information such as upcoming events and recent notices. It also shows off pictures 
+     from recent club activities or interesting features that the club wants to present.
+  -->
+
+<!-- this template extends the base.html. The following blocks on this page override 
+     the blocks defined in the base template. -->
 {% extends "usdacm/base.html" %}
 
+{% load staticfiles %} <!-- loads the server's static files. (needed to display the
+			    images below) -->
+
+
+<!-- owerrides the base content area -->
 {% block content-area %}
-{% load staticfiles %}
-
-
-
 <!-- Carousel ------------------------------------------------------------->
+<!-- a scrolling slide show of pictures. -->
 <div class="row">
   <div class="col-lg-12">    
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -16,19 +30,16 @@
         <li data-target="#myCarousel" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-	
+	<!-- slide 1 -->
 	<div class="item active">
 	  <img src="{% static "acm/img/artshow1.jpg" %}" alt="First slide">
-          <!--img data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide" alt="First slide"-->
           <div class="container">
             <div class="carousel-caption">
-              <h1>Example headline.</h1>
-              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+              
             </div>
           </div>
         </div>
-        
+        <!-- slide 2 -->
 	<div class="item">
           <img src="{% static "acm/img/artshow2.jpg" %}" alt="Second slide">
           <div class="container">
@@ -39,22 +50,22 @@
             </div>
           </div>
         </div>
-	
+	<!-- slide 3 -->
 	<div class="item">
 	  <img src="{% static "acm/img/artshow3.jpg" %}" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
               <h1>ACM Digital Art Show</h1>
-              <!--p>blah blah blah</p-->
               <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
             </div>
           </div>
         </div>
-	
       </div>
+      <!-- scroll left button -->
       <a class="left carousel-control" href="#myCarousel" data-slide="prev">
 	<span class="glyphicon glyphicon-chevron-left"></span>
       </a>
+      <!-- scroll right button -->
       <a class="right carousel-control" href="#myCarousel" data-slide="next">
 	<span class="glyphicon glyphicon-chevron-right"></span>
       </a>
@@ -67,34 +78,39 @@
 
 
 
-
+<!-- the container places margins on the sides of the content -->
 <div class="container"> 
+
+  <!-- this row section uses Bootstrap's fluid layout. A row element comprises of 12 columns. 
+       Each col element below is defined with the desired number of columns to span at 
+       different window sizes. A push or pull can shift an element forward in the grid by 
+       a specified ammount of columns on a certain screen size. -->
   <div class="row"> 
 
  
     <!-- Announcements -->
+    <!-- this col section spans all 12 columns in x-small and small screens, but only 4 columns 
+	 in medium and larger screens -->
     <div id="section" class="col-xs-12 col-sm-12 col-md-4">
       <h2 id="section-headd">Announcements</h2>
       
+      {% for announcement in announcements %}
       <div class="panel">
-	<h5><a href="#">Announcement Title 1</a></h5>
-	<h6 class="subheader">blah blah blah, stuff stuff stuff. kjh tdygkjh jkhg kfhjk  jhg kjh j jh hkjhgj hkhgk h h kjh  kjhg kjhgkjhg jkh hjg kjhg jgkj ghjg kjhg kjhg khg kh jk gk hkj gjkgk </h6>
+	<h5><a href={% url 'usdacm.views.announcement' announcement.id %}>{{announcement.title}}</a></h5>
+	<h6 class="subheader">{{announcement.text}}</h6>
 	<h6><a href="#">Read More »</a></h6>
       </div>
       
-      <div class="panel hide-for-small">
-	<h5><a href="#">Announcement Title 2 »</a></h5>
-      </div>
-      
-      <div class="panel hide-for-small">
-	<h5><a href="#">Announcement Title 3 »</a></h5>
-      </div>
+      {% endfor %}
       <a class="btn btn-sm btn-success pull-right" href={% url 'usdacm.views.announcements' %}>all anonuncements »</a>
+
     </div>
     <!-- end Announcements -->
     
         
-    <!-- Events -->
+    <!-- Events. lists the first few upcomming events-->
+    <!-- this col section is pushed to the right 4 columns on medium screens causing it to
+	 switch places with the following pulled section -->
     <div id="section" class="col-xs-12 col-sm-6 col-md-4 col-md-push-4">
       <h2 id="section-headd">Upcomming Events</h2><hr>
       
@@ -119,7 +135,8 @@
     </div>
     <!-- end Events -->
     
-    
+    <!-- this col section is pushed to the left 4 columns on medium screens causing it to
+	 switch places with the prevois pushed section -->
     <!-- Image -->
     <div id="section" class="col-xs-12 col-sm-6 col-md-4 col-md-pull-4">
       <div id="image-wrap" >

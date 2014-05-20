@@ -1,8 +1,12 @@
 /*
+ * calendar.css
+ * USD ACM
  * Laura Londo
+ * 20 May 2014
  *
+ * This document provides custom styles various elements throughout the
+ * website.
  */
-
 
 /* remove overflow problem with row class */
 html, body {

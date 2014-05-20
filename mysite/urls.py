@@ -1,3 +1,15 @@
+# urls.py
+# USD ACM
+# Laura Londo
+# 20 May 2014
+
+'''
+ defines all of the valid urls available on the website and the views that handle
+ rendering information upon requests to those urls. Capture arguments can be used 
+ to capture a section of the url to pass into the view as an argument.
+'''
+
+
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
@@ -13,7 +25,7 @@ urlpatterns = patterns('',
 
 
 
-
+    # USD ACM
     (r'^$', 'usdacm.views.index'),
     (r'^login/$', 'usdacm.views.login_user'),
     (r'^logout/$', 'usdacm.views.logout_user'),
@@ -32,16 +44,17 @@ urlpatterns = patterns('',
 
     (r'^announcements/$', 'usdacm.views.announcements'),
     (r'^announcement/(?P<announcementId>\d+)/$', 'usdacm.views.announcement'),
-    (r'^announcement/create/(?P<announcementId>\d+)/$', 'usdacm.views.create_announcement'),
+    (r'^announcement/create/$', 'usdacm.views.create_announcement'),
     (r'^announcement/edit/(?P<announcementId>\d+)/$', 'usdacm.views.edit_announcement'),
     (r'^announcement/delete/(?P<announcementId>\d+)/$', 'usdacm.views.delete_announcement'),
 
-    (r'^tutoring/$', 'usdacm.views.tutoring'),
+    (r'^tutoring/$', 'usdacm.views.tutoring_schedule'),
     (r'^tutoring/schedule/$', 'usdacm.views.tutoring_schedule'),
     (r'^tutoring/sign-up/$', 'usdacm.views.tutoring_signup'),
     (r'^tutoring/delete/(?P<ttimeId>\d+)/$', 'usdacm.views.tutoring_delete'),
 
 
+    # artshow application
     (r'^artshow/$', 'artshow.views.submissions'),
     (r'^artshow/new_submission/$', 'artshow.views.new_submission'),
 

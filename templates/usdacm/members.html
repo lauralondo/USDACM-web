@@ -1,44 +1,58 @@
+<!-- memebrs.html 
+     USD ACM
+     Laura Londo
+     19 May 2014
+
+     Template for the members page. This page the members of the ACM Club.
+  -->
+
+
+<!-- this template extends the base.html. The following blocks on this page override 
+     the blocks defined in the base template. -->
 {% extends "usdacm/base.html" %}
 
+{% load staticfiles %} <!-- loads the server's static files.
+
+<!-- appends text to the window/tab title -->
 {% block window-title %}
 | Members
 {% endblock %}
 
 
+<!-- overrides the base content area -->
 {% block content-area %}
-{% load staticfiles %}
 <div class="container">
 
 
 
 
 
-
+  <!-- page title -->
   <div class="page-header">
-    <h1>Members</h1>
+    <h1>Members <small>Meet the ACM club!</small></h1>
   </div>
 
-  <table>
-    
+
+  <!-- displays each member's name and avatar if available -->
+  <table>  
     {% for member in members %}
     <tr>
-      <th>
+      <td>
 	{% if member.pic %}
 	<img class="img-100 img-rounded" src="{{member.pic.url}}">
 	{% else %}
 	<img class="img-100 img-rounded" src="{% static "acm/img/default_pic.png" %}">
 	{% endif %}
-      </th>
-      <th>{{member.firstName}} {{member.lastName}}</th>
+      </td>
+      {% if user.is_authenticated %} <!-- if the current user is logged in, display real names -->
+      <td>{{member.firstName}} {{member.lastName}}</td>
+      {% else %} <!-- else use usernames -->
+      <td>{{member.user.username}}</td>
+      {% endif %}
     </tr>
     {% endfor %}
-    
   </table>
 
 
-
-
-
-  
 </div>
 {% endblock %}

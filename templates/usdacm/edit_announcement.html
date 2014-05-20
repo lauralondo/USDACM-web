@@ -1,10 +1,10 @@
-<!-- edit_event.html 
+<!-- edit_announcement.html 
      USD ACM
      Laura Londo
      19 May 2014
 
-     Template for the edit event page. This page displays a form to submit an update 
-     of an event to the database.
+     Template for the edit announcement page. This page displays a form to submit an update 
+     of an announcement to the database.
   -->
 
 <!-- this template extends the base.html. The following blocks on this page override 
@@ -13,7 +13,7 @@
 
 <!-- appends text to the window/tab title -->
 {% block window-title %}
-| Edit Event  - {{event.title}}
+| Edit Announcement - {{announcement.title}}
 {% endblock %}
 
 
@@ -26,10 +26,10 @@
 
 <!-- page title -->
 <div class="page-header">
-  <h1>{{ event.title }} <small> Edit Event</small>
+  <h1>{{ announcement.title }} <small> Edit Announcement</small>
     <span class="page-header-buttons pull-right">   
       <a class="btn btn-default btn-xs"
-	 href={% url 'usdacm.views.event' event.id %}>
+	 href={% url 'usdacm.views.announcement' announcement.id %}>
 	cancel
       </a>
     </span>
@@ -37,12 +37,8 @@
 </div>
 
 
-
-
-
-
 <!-- submit button -->
-<a href={% url 'usdacm.views.event' event.id %} class="btn btn-success btn-lg pull-right">Submit</a>
+<a href={% url 'usdacm.views.announcement' announcement.id %} class="btn btn-success btn-lg pull-right">Submit</a>
 
 
 </div> <!-- end container -->

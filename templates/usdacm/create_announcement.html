@@ -1,57 +1,51 @@
-<!-- create_event.html 
+<!-- create_announcement.html 
      USD ACM
      Laura Londo
      19 May 2014
 
-     Template for the new event creation page. This page displays a form to submit 
-     a new event to the database.
+     Template for the new announcment creation page. This page displays a form to
+     submit a new announcement to the database.
   -->
 
 <!-- this template extends the base.html. The following blocks on this page override 
      the blocks defined in the base template. -->
 {% extends "usdacm/base.html" %}
 
-{% load staticfiles %} <!-- loads the server's static files. (needed to display the
-			    images below) -->
 {% load custom_filters %} <!-- loads custom filters such as the filter used to get the
 			       form field's widget type below -->
 
 <!-- appends text to the window/tab title -->
 {% block window-title %}
-| Create Event
+| Create Announcement
 {% endblock %}
 
 
-
-
-<!-- overrides the base content area -->
+<!-- appends text to the window/tab title -->
 {% block content-area %}
 <div class="container">
   
   <!-- page title -->
   <div class="page-header">
-    <h1>New Event</h1>
+    <h1>New Announcement</h1>
   </div>
 
     
-
-
-  <!-- new event form -->
+  <!-- new announcement form -->
   <div style="max-width:30em">
     <form role="form" method=post enctype="multipart/form-data">{% csrf_token %}
 
-      {% for field in form %}  <!-- for each field in the form -->
+      {% for field in form %} <!-- for each field in the form -->
       {% if field.errors %} <!-- if there are errors in the form inputs, display
 				   the errors in alerts -->
       <div style="margin-bottom:0;"class="alert alert-warning">{{field.errors}}</div>
       {% endif %}
       
 
-      
+
       <div class="form-group">
 	<div class="input-group">
-	  
-	  <!-- display field labels -->
+
+	  <!-- display field labels -->	  
 	  <span class="input-group-addon">
 	    {% if field.field.required %} <b>{{field.label}}</b>
 	    {% else %} {{field.label}} {% endif %}
@@ -70,10 +64,12 @@
       </div>
       {% endfor %}
       <!-- submit button -->
-      <button type=submit class="btn btn-success pull-right">Create Event</button>
+      <button type=submit class="btn btn-success pull-right">Create Announcement</button>
       
     </form>
   </div>
+
+
 
 
 

@@ -1,30 +1,74 @@
+<!-- about.html 
+     USD ACM
+     Laura Londo
+     19 May 2014
+
+     Template for the "about" page. This page intended to provide viewers with general 
+     information about the ACM club and what they do. This page also may show off some 
+     of the projects created by CS students or pictures from various events happening 
+     in the CS department. The page explains a little about what it is like to be a 
+     computer science student at USD.
+  -->
+
+<!-- this template extends the base.html. The following blocks on this page override 
+     the blocks defined in the base template. -->
 {% extends "usdacm/base.html" %}
 
+{% load staticfiles %} <!-- loads the server's static files. (needed to display the
+			    images below) -->
+
+
+<!-- appends text to the window/tab title -->
 {% block window-title %}
 | About
 {% endblock %}
 
 
 
-
+<!-- owerrides the base content area -->
 {% block content-area %}
 <div class="container">
 
 
 
-<div class="page-header">
-<h1>Hello, World!</h1>
-</div>
-
-<p>Welcome to the website of the University of San Diego Association for Computing Machinery student organization! -- essentially, USD's computer science club!</p>
-<br>
-<p>...</p>
-
-
-
-
-
-
+  <div class="page-header">
+    <h1>Hello, World!</h1>
+  </div>
+  
+  
+  <h4>Welcome to the website of the University of San Diego Association for Computing 
+    Machinery student organization! -- essentially, USD's computer science club!</h4><br>
+  
+  <img style="max-width:100%; max-height:400px;" src="{% static "acm/img/ztype1.jpg" %}">
+  
+  <br>
+  <br>
+  <h4>As such, our goal is to increase knowledge of and greater interest in the science, 
+    design, development, construction, languages, management and applications of modern 
+    computing.</h4><br>
+  
+  <div class="row">
+    <div class="col-sm-6">
+      <img style="max-width:100%; max-height:200px;" src="{% static "acm/img/artshow1.jpg" %}">
+    </div>
+    <div class="col-sm-6">
+      <h4>Computer science is a fun and challenging field. ...</h4>
+    </div>
+  </div>
+  
+  <br><br>
+  <div class="row">
+    <div class="col-sm-6">
+      <h4>We put on fun and exciting events throughout the semester. Stay tuned, and get 
+	involved!</h4>
+    </div>
+    <div class="col-sm-6">
+      <img style="max-width:100%; max-height:300px;" src="{% static "acm/img/artshow3.jpg" %}">
+    </div>
+  </div>
+  
+  
+  
+  
 </div> <!-- end container -->
-
 {% endblock %}

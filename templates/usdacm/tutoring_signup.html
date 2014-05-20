@@ -1,68 +1,109 @@
-{% extends "usdacm/base.html" %}
-{% load custom_filters %}
+<!-- tutoring_signup.html 
+     USD ACM
+     Laura Londo
+     19 May 2014
 
+     Template for the tutoring signup page. This page displays a form for allowing members
+     to sign up for tutoring hours for a given day. If the user is not logged in when 
+     trying to load this page, they will be redirected to the login page. This page also 
+     provides information about becoming a tutor and where to get more information.
+  -->
+
+<!-- this template extends the base.html. The following blocks on this page override 
+     the blocks defined in the base template. -->
+{% extends "usdacm/base.html" %}
+
+{% load custom_filters %} <!-- loads custom filters such as the filter used to get the
+			       form field's widget type below -->
+
+<!-- appends text to the window/tab title -->
 {% block window-title %}
 | Tutoring Sign-Up
 {% endblock %}
 
+
+<!-- overrides the base content area -->
 {% block content-area %}
 <div class="container">
 
 
+  <!-- page title -->
   <div class="page-header">
     <h1>Tutoring Sign-up</h1>
   </div>
 
 
 
-  <div style="max-width:30em">
-    <form role="form" method=post enctype="multipart/form-data">{% csrf_token %}
-      
-      {% for field in form %}
-      {% if field.errors %}
-      <div style="margin-bottom:0;"class="alert alert-warning">{{field.errors}}</div>
-      {% endif %}
-      
-      
-      
-      <div class="form-group">
-	<div class="input-group">
-	  <span class="input-group-addon">
-	    {% if field.field.required %} <b>{{field.label}}</b>
-	    {% else %} {{field.label}} {% endif %}
-	  </span>
 
-	  {% if field.html_name  == "day"  %}
-	  <select class="form-control" name={{field.html_name}}>
-	    <option>Monday</option>
-	    <option>Tuesday</option>
-	    <option>Wednesday</option>
-	    <option>Thursday</option>
-	    <option>Friday</option>
-	  </select>
+  <div class="row">
 
-	  {% else %}	  
-	  <input autofocus="autofocus"
-		 type={{ field.field.widget|widget_type }}
-		 class="form-control" 
-		 name={{field.html_name}}
-		 {% if field.value %}value={{ field.value }}{% endif %}
-		 placeholder={{field.label}}>
+    <!-- tutoring sign up information -->
+    <div class="col-sm-6 col-sm-push-6">
+      <hr class="hidden-sm hidden-md hidden-lg">
+      <h3>Volunteer Tutors</h3>
+      <p style="text-indent: 2em;">As of right now, all of our ACM tutors are volunteers with 
+	the basic skills necessary to help lower-division CS students with their course material. 
+	If you want to help out your fellow students, this is a great opportunity to do so.
+	Feel free to sign up for as many timeslots as you want. Please try to be available 
+	during your scheduled time in the <b>Linux Lab, Sera 163</b>. For more information, 
+	the contact ACM president at paulnguyen@sandiego.edu or our faculty advisor at 
+	sat@sandiego.edu.</p>
+    </div> <!-- end col -->
+    
+
+
+    <!-- sign-up form -->
+    <div class="col-sm-6 col-sm-pull-6">
+      <br>
+      <div style="max-width:30em">
+	<form role="form" method=post enctype="multipart/form-data">{% csrf_token %}
+	  {% for field in form %}
+	  {% if field.errors %}
+	  <div style="margin-bottom:0;"class="alert alert-warning">{{field.errors}}</div>
 	  {% endif %}
+	  
+	  <div class="form-group">
+	    <div class="input-group">
+	      <!-- field label -->
+	      <span class="input-group-addon">
+		{% if field.field.required %} <b>{{field.label}}</b>
+		{% else %} {{field.label}} {% endif %}
+	      </span>
+	      
+	      <!-- the day of the week widget provides the user with a dropdown-menu
+		   of choices to fill out the field. -->
+	      {% if field.html_name  == "day"  %}
+	      <select autofocus="autofocus" class="form-control" name={{field.html_name}}>
+		<option>Monday</option>
+		<option>Tuesday</option>
+		<option>Wednesday</option>
+		<option>Thursday</option>
+		<option>Friday</option>
+	      </select>
+	      
+	      {% else %} <!-- for any other field, -->
+	      <!-- autofocus causes the cursor to automatically
+		   be placed in the field input upon page load -->
+	      <input autofocus="autofocus" 
+		     type={{ field.field.widget|widget_type }}
+		     class="form-control" 
+		     name={{field.html_name}}
+		     {% if field.value %}value={{ field.value }}{% endif %}
+		     placeholder={{field.label}}>
+	      {% endif %}
+	      
+	    </div>
+	  </div>
+	  {% endfor %}
 
-	</div>
+	  <!-- submission button -->
+	  <button type=submit class="btn btn-success pull-right">Sign Up</button>	  
+	</form>
       </div>
-      {% endfor %}
-      <button type=submit class="btn btn-success pull-right">Sign Up</button>
-      
-    </form>
+    </div><!-- end col -->
+    
 
-
-
-  </div>
-  
-
-
+</div><!-- end row -->
 
 
 

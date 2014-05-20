@@ -1,7 +1,8 @@
 /**
  * usdacm_caledar.js
+ * USD ACM
  * Laura Londo
- * 
+ * 20 May 2014
  * 
  * JavaScript Events calendar generator for the USD ACM website. Reads the
  * current year and month from the events page and queries the events table
@@ -30,7 +31,7 @@ var genCalendar = function() {
     if( this.id == "prev-month") {
 	if( month == 1) { //if first month
 	    month = 12;   //loop back to 12
-	    year--;    //of previous year
+	    year--;       //of previous year
 	}
 	else {
 	    month--;
@@ -58,7 +59,7 @@ var genCalendar = function() {
 
     //query the database for all event information for the new month
     //sends a GET request to the page rendered by the get_month_events view in views.py
-    $.get(url,//'/get_month_events/',              //URL to send the request to
+    $.get(url,                               //URL to send the request to
           {newYear: year, newMonth: month},  //data to send in the request
 	  function(data) {                   //function to handle the response
 	      var package = JSON.parse(data);//parse JSON message from python view
